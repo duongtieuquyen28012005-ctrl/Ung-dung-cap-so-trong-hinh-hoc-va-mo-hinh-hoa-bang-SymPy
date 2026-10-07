@@ -1,219 +1,253 @@
-# 📐 Dự Án Viết Tiểu Luận: Vectơ Trong Các Bài Toán Thực Tế
+# 📐 Dự Án Tiểu Luận: Ứng Dụng Cấp Số Trong Hình Học Và Mô Hình Hóa Bằng SymPy
 
-Chào mừng bạn đến với kho lưu trữ **dự án tiểu luận về Vectơ trong các bài toán thực tế**.  
-Đây là nơi tổng hợp và quản lý toàn bộ quá trình thực hiện dự án, từ **tìm hiểu kiến thức, xây dựng nội dung, mô hình hóa các tình huống thực tế** đến **hoàn thiện bài tiểu luận và các tài liệu đi kèm**.
-# 1. Thông tin chung {#thông-tin-chung .unnumbered}
+Chào mừng bạn đến với kho lưu trữ **dự án tiểu luận nhóm về Ứng dụng cấp số trong hình học và mô hình hóa bằng SymPy**.
 
-**Chủ đề:** Vectơ trong các bài toán thực tế.
+Đây là nơi tổng hợp và quản lý toàn bộ quá trình thực hiện tiểu luận, từ **tìm hiểu cơ sở lý thuyết, xây dựng các mô hình hình học, vận dụng cấp số nhân để giải quyết bài toán** đến **mô hình hóa, tính toán và trực quan hóa bằng Python, SymPy và Matplotlib**.
 
-**Mục tiêu:** Tiểu luận tập trung tìm hiểu và vận dụng các kiến thức về
-vectơ trong không gian, tọa độ điểm, tọa độ vectơ và các phép toán vectơ
-để giải quyết một số bài toán gắn với thực tế. Thông qua các tình huống
-cụ thể, tiểu luận hướng đến việc làm rõ vai trò của vectơ trong quá
-trình mô hình hóa và giải quyết vấn đề.
+# 1. Thông tin chung
 
-**Nội dung thực hiện:** Tiểu luận trình bày các kiến thức cơ bản về
-vectơ trong không gian, hệ trục tọa độ $Oxyz$, tọa độ điểm, tọa độ
-vectơ, tích vô hướng và các kiến thức liên quan. Trên cơ sở đó, các kiến
-thức này được vận dụng để giải quyết một số bài toán thực tế liên quan
-đến xác định tọa độ, tính khoảng cách, độ dài, diện tích, thể tích và
-tổng hợp lực. Các ví dụ được lựa chọn từ những tình huống gần gũi với
-thực tế và được trình bày kèm theo lý do lựa chọn, ý tưởng giải và lời
-giải chi tiết.
+**Chủ đề:** Ứng dụng cấp số trong hình học và mô hình hóa bằng SymPy.
 
-**Thời gian thực hiện:** 2 tuần.
+**Hình thức thực hiện:** Tiểu luận nhóm.
+
+**Mục tiêu:** Tiểu luận tập trung hệ thống hóa các kiến thức về dãy số, cấp số nhân, tính lặp lại và phép đồng dạng; từ đó vận dụng cấp số nhân để khảo sát các đại lượng hình học như chu vi, diện tích và thể tích của một số cấu trúc được hình thành qua quá trình lặp.
+
+Bên cạnh việc giải quyết các bài toán bằng phương pháp toán học, tiểu luận còn sử dụng **SymPy** để thực hiện tính toán chính xác và **Matplotlib** để trực quan hóa các mô hình hình học qua nhiều bước lặp.
+
+**Nội dung thực hiện:** Tiểu luận trình bày cơ sở lý thuyết về dãy số, cấp số nhân, tính lặp lại và phép đồng dạng. Trên cơ sở đó, các kiến thức được vận dụng để nghiên cứu một số mô hình hình học điển hình như **tấm thảm Sierpinski, bông tuyết Koch, tam giác Sierpinski, đoạn thẳng Cantor, bọt biển Menger và hình vuông xoắn ốc**.
+
+Phần cuối của tiểu luận trình bày việc sử dụng **SymPy** trong dựng tọa độ, tính toán đại số chính xác, giải phương trình và kiểm chứng các kết quả đã thu được bằng phương pháp lý thuyết. Đồng thời, **Matplotlib** được sử dụng để trực quan hóa các cấu trúc hình học qua từng bước lặp.
+
+**Thời gian thực hiện:** 3 tuần.
 
 **Định dạng:** File PDF, khoảng 40 trang.
 
-# 2. Đề cương chi tiết bài tiểu luận {#đề-cương-chi-tiết-bài-tiểu-luận .unnumbered}
+# 2. Đề cương chi tiết bài tiểu luận
 
-## Mở đầu {#mở-đầu .unnumbered}
+## Mở đầu
 
-\* Lý do chọn đề tài.
+* Lý do chọn đề tài.
 
-\* Mục đích và nhiệm vụ nghiên cứu.
+* Mục tiêu và nhiệm vụ nghiên cứu.
 
-\* Đối tượng và phạm vi nghiên cứu.
+* Đối tượng và phạm vi nghiên cứu.
 
-\* Khái quát vai trò của vectơ trong việc mô hình hóa và giải quyết các
-bài toán thực tế.
+* Khái quát mối liên hệ giữa cấp số nhân và các cấu trúc hình học được hình thành qua quá trình lặp.
 
-## Chương 1: Kiến thức chuẩn bị {#chương-1-kiến-thức-chuẩn-bị .unnumbered}
+* Giới thiệu vai trò của SymPy và Matplotlib trong mô hình hóa, tính toán và trực quan hóa hình học.
 
-\* Trình bày các kiến thức cơ bản về vectơ trong không gian và các phép
-toán với vectơ.
+## Chương 1: Cơ sở lý thuyết
 
-\* Ba vectơ đồng phẳng.
+* Một số khái niệm cơ bản về dãy số.
 
-\* Hệ trục tọa độ $Oxyz$, tọa độ điểm và tọa độ vectơ.
+* Dãy số truy hồi và cách mô tả dãy số.
 
-\* Biểu thức tọa độ của phép cộng, phép trừ vectơ và phép nhân một số
-với một vectơ.
+* Cấp số nhân và công thức số hạng tổng quát.
 
-\* Tọa độ trung điểm, tọa độ trọng tâm.
+* Tổng $n$ số hạng đầu của cấp số nhân.
 
-\* Biểu thức tọa độ của tích vô hướng.
+* Cấp số nhân lùi vô hạn và điều kiện hội tụ.
 
-## Chương 2: Toán thực tế xác định tọa độ điểm, tọa độ vectơ {#chương-2-toán-thực-tế-xác-định-tọa-độ-điểm-tọa-độ-vectơ .unnumbered}
+* Khái niệm tính lặp lại trong quá trình xây dựng các cấu trúc hình học.
 
-\* Tọa độ điểm trong không gian $Oxyz$ và biểu diễn vectơ bằng tọa độ.
+* Phép đồng dạng và tỉ số đồng dạng.
 
-\* Các phép toán vectơ cơ bản trong hệ tọa độ.
+* Mối liên hệ giữa tỉ số đồng dạng với chu vi, diện tích và thể tích.
 
-\* Xác định tọa độ các điểm đặc biệt như trung điểm, trọng tâm và điểm
-chia đoạn thẳng theo tỉ số.
+## Chương 2: Các mô hình bài toán hình học cấp số điển hình
 
-\* Mô hình hóa các bài toán thực tế có hướng Đông -- Tây -- Nam -- Bắc
-bằng hệ tọa độ.
+### 2.1. Bài toán tấm thảm Sierpinski
 
-\* Một số kinh nghiệm khi thiết lập hệ trục tọa độ và xác định tọa độ
-các đối tượng.
+* Xây dựng tấm thảm Sierpinski qua quá trình chia hình vuông.
 
-\* Xây dựng các ví dụ thực tế, trình bày lý do lựa chọn tình huống và ý
-tưởng giải trước khi giải quyết bài toán.
+* Khảo sát chu vi qua từng bước lặp.
 
-## Chương 3: Ứng dụng vectơ tính khoảng cách trong các mô hình hình học {#chương-3-ứng-dụng-vectơ-tính-khoảng-cách-trong-các-mô-hình-hình-học .unnumbered}
+* Xác định cấp số nhân mô tả phần chu vi tăng thêm.
 
-\* Vận dụng biểu thức tọa độ của tích vô hướng để tính toán các đại
-lượng hình học.
+* Khảo sát diện tích phần bị loại bỏ và diện tích còn lại.
 
-\* Tính khoảng cách và độ dài đoạn thẳng trong các mô hình hình học
-không gian.
+### 2.2. Bài toán bông tuyết Koch
 
-\* Vận dụng vectơ để tính diện tích và thể tích.
+* Xây dựng bông tuyết Koch từ tam giác đều.
 
-\* Mô hình hóa các bài toán có điểm di động và tham số, trong đó khoảng
-cách hoặc độ dài cần tìm phụ thuộc vào tham số.
+* Khảo sát sự thay đổi của số cạnh và độ dài mỗi cạnh.
 
-\* Phân tích một số kinh nghiệm khi giải các bài toán khoảng cách, đặc
-biệt là các bài toán đưa về tìm giá trị nhỏ nhất.
+* Xác định cấp số nhân mô tả chu vi.
 
-\* Xây dựng và phân tích các tình huống thực tế như trang trí không
-gian, chuyển động trong bể nước và mô hình hóa máng trượt.
+* Khảo sát sự thay đổi diện tích qua từng bước.
 
-## Chương 4: Tọa độ vectơ trong bài toán tổng hợp lực {#chương-4-tọa-độ-vectơ-trong-bài-toán-tổng-hợp-lực .unnumbered}
+### 2.3. Bài toán tam giác Sierpinski
 
-\* Trình bày một số kiến thức cần thiết về lực, hợp lực và điều kiện cân
-bằng lực.
+* Xây dựng tam giác Sierpinski bằng quá trình chia nhỏ và loại bỏ tam giác trung tâm.
 
-\* Biểu diễn các lực bằng vectơ và sử dụng các thành phần của vectơ để
-thiết lập điều kiện cân bằng.
+* Khảo sát chu vi qua từng bước lặp.
 
-\* Vận dụng tọa độ vectơ trong các bài toán về lực căng của dây và hệ
-thống dây treo.
+* Xác định cấp số nhân mô tả phần chu vi tăng thêm.
 
-\* Mô hình hóa và phân tích các bài toán thực tế liên quan đến hoạt động
-của cần cẩu.
+* Khảo sát diện tích phần bị loại bỏ và phần còn lại.
 
-\* Khai thác tính đối xứng trong các bài toán tổng hợp lực và xác định
-các lực tác dụng lên hệ vật.
+### 2.4. Một số bài toán khác
 
-\* Trình bày lý do lựa chọn tình huống, ý tưởng giải và lời giải đối với
-các ví dụ thực tế.
+* Đoạn thẳng Cantor.
 
-## Kết luận {#kết-luận .unnumbered}
+* Bọt biển Menger.
 
-\* Hệ thống lại những kiến thức về vectơ và tọa độ trong không gian đã
-được sử dụng trong tiểu luận.
+* Hình vuông xoắn ốc.
 
-\* Tổng kết việc vận dụng vectơ vào các bài toán xác định tọa độ, tính
-khoảng cách, độ dài, diện tích, thể tích và tổng hợp lực.
+* Phân tích quy luật thay đổi của các đại lượng hình học qua quá trình lặp.
 
-\* Làm rõ vai trò của vectơ trong việc chuyển các tình huống thực tế
-thành mô hình toán học và giải quyết vấn đề.
+# 3. Ứng dụng SymPy trong mô hình hóa và tính toán
 
-\* Tổng kết những kỹ năng về phân tích, mô hình hóa và trình bày đạt
-được qua quá trình thực hiện tiểu luận.
+## 3.1. Vai trò của SymPy trong mô hình hóa hình học
 
-# 3. Kế hoạch & Tiến độ thực hiện {#kế-hoạch-tiến-độ-thực-hiện .unnumbered}
+* Giới thiệu SymPy và tính toán biểu tượng trong Python.
 
-- **Ngày 1:** Xác định nội dung, phạm vi và hướng triển khai đề tài; thu
-  thập tài liệu tham khảo liên quan đến vectơ trong không gian và các
-  bài toán thực tế.
+* Dựng tọa độ chính xác cho các đối tượng hình học.
 
-- **Ngày 2:** Đọc và hệ thống hóa các kiến thức cơ bản về vectơ trong
-  không gian, các phép toán vectơ và ba vectơ đồng phẳng.
+* Sử dụng phân số, căn thức và biểu thức chứa tham số trong tính toán.
 
-- **Ngày 3:** Hoàn thành phần kiến thức về hệ tọa độ $Oxyz$, tọa độ
-  điểm, tọa độ vectơ và các công thức tọa độ.
+* Tính toán và kiểm chứng chu vi, diện tích, thể tích qua từng bước.
 
-- **Ngày 4:** Hoàn thiện Chương 1 với các nội dung về tọa độ điểm đặc
-  biệt và tích vô hướng; rà soát lại toàn bộ chương.
+* Sử dụng SymPy để giải phương trình và xác định các tỉ số hình học.
 
-- **Ngày 5:** Viết Chương 2: xác định tọa độ điểm, tọa độ vectơ và xây
-  dựng hệ tọa độ để mô hình hóa các tình huống thực tế.
+* Kết hợp SymPy với Matplotlib để trực quan hóa kết quả.
 
-- **Ngày 6:** Hoàn thiện các nội dung về bài toán có hướng Đông -- Tây
-  -- Nam -- Bắc và các kinh nghiệm khi giải bài toán.
+## 3.2. Bông tuyết Koch
 
-- **Ngày 7:** Hoàn thành các ví dụ điển hình của Chương 2, bao gồm lý do
-  lựa chọn tình huống, ý tưởng giải và lời giải.
+* Xây dựng các điểm và đoạn thẳng bằng `Point2D`.
 
-- **Ngày 8:** Viết Chương 3: ứng dụng vectơ và tích vô hướng trong tính
-  khoảng cách, độ dài, diện tích và thể tích.
+* Thực hiện phép chia đoạn và phép quay để tạo mũi nhọn.
 
-- **Ngày 9:** Hoàn thiện các ví dụ thực tế của Chương 3 như bài toán
-  trang trí phòng, chuyển động trong bể nước và máng trượt nước.
+* Tính chu vi chính xác qua từng bước.
 
-- **Ngày 10:** Viết Chương 4: cơ sở lý thuyết về lực, biểu diễn lực bằng
-  vectơ và bài toán tổng hợp lực.
+* Đối chiếu kết quả chương trình với công thức cấp số nhân.
 
-- **Ngày 11:** Hoàn thiện các ví dụ về hệ thống dây cáp, hệ thống treo,
-  cần cẩu và điều kiện cân bằng lực.
+## 3.3. Tấm thảm Sierpinski
 
-- **Ngày 12:** Viết **Mở đầu** và **Kết luận**, liên hệ vai trò của
-  vectơ trong việc mô hình hóa và giải quyết các bài toán thực tế.
+* Sử dụng phương pháp đệ quy để xây dựng các hình vuông con.
 
-- **Ngày 13:** Rà soát toàn bộ nội dung, kiểm tra tính thống nhất giữa
-  các chương, công thức, hình vẽ và lời giải.
+* Tính diện tích phần còn lại bằng biểu thức chính xác.
 
-- **Ngày 14:** Hoàn thiện hình thức trình bày, mục lục, tài liệu tham
-  khảo; kiểm tra lỗi chính tả và hoàn chỉnh bản cuối trước khi nộp.
+* Kiểm chứng công thức lý thuyết bằng chương trình.
 
-# 4. Tài liệu tham khảo (Dự kiến) {#tài-liệu-tham-khảo-dự-kiến .unnumbered}
+## 3.4. Tam giác Sierpinski
 
-1.  Đỗ Đức Thái (Tổng Chủ biên kiêm Chủ biên), Phạm Xuân Chung, Nguyễn
-    Sơn Hà, Nguyễn Thị Phương Loan, Phạm Sỹ Nam, Phạm Minh Phương
-    (2024), *Toán 12, Tập 1 (Cánh Diều)*, Nhà xuất bản Đại học Sư phạm.
+* Xây dựng tam giác và các tam giác con qua từng bước.
 
-2.  Trần Nam Dũng (Tổng Chủ biên), Trần Đức Huyên, Nguyễn Thành Anh
-    (đồng Chủ biên), Vũ Như Thư Hương, Ngô Hoàng Long, Phạm Hoàng Quân,
-    Phạm Thị Thu Thủy (2024), *Toán 12, Tập 1 (Chân trời sáng tạo)*, Nhà
-    xuất bản Giáo dục Việt Nam.
+* Tính toán diện tích theo quy luật cấp số nhân.
 
-3.  Hà Huy Khoái (Tổng Chủ biên), Cung Thế Anh, Trần Văn Tấn, Đặng Hùng
-    Thắng (đồng Chủ biên), Lê Văn Cường, Trần Mạnh Cường, Nguyễn Đạt
-    Đăng, Lê Văn Hiện, Phan Thanh Hồng, Trần Đình Kế, Phạm Anh Minh,
-    Nguyễn Thị Kim Sơn (2024), *Toán 12, Tập 1 (Kết nối tri thức với
-    cuộc sống)*, Nhà xuất bản Giáo dục Việt Nam.
+* Trực quan hóa quá trình hình thành tam giác Sierpinski.
 
-4.  Đỗ Đức Thái (Tổng Chủ biên kiêm Chủ biên), Phạm Xuân Chung, Nguyễn
-    Sơn Hà, Nguyễn Thị Phương Loan, Phạm Sỹ Nam, Phạm Minh Phương
-    (2024), *Bài tập Toán 12, Tập 1 (Cánh Diều)*, Nhà xuất bản Đại học
-    Sư phạm.
+## 3.5. Đoạn thẳng Cantor
 
-5.  Trần Đức Huyên, Nguyễn Thành Anh (đồng Chủ biên), Vũ Như Thư Hương,
-    Ngô Hoàng Long, Phạm Hoàng Quân, Phạm Thị Thu Thủy (2024), *Bài tập
-    Toán 12, Tập 1 (Chân trời sáng tạo)*, Nhà xuất bản Giáo dục Việt
-    Nam.
+* Mô phỏng quá trình chia và loại bỏ đoạn giữa.
 
-6.  Cung Thế Anh, Trần Văn Tấn, Trần Mạnh Cường, Đặng Hùng Thắng, Lê Văn
-    Cường, Nguyễn Đạt Đăng, Lê Văn Hiện, Trần Đình Kế, Phạm Anh Minh,
-    Nguyễn Thị Kim Sơn (2024), *Bài tập Toán 12, Tập 1 (Kết nối tri thức
-    với cuộc sống)*, Nhà xuất bản Giáo dục Việt Nam.
+* Xác định độ dài các đoạn còn lại qua từng bước.
 
-7.  Đỗ Văn Đức, *Hành trình chinh phục thực tế*, Nhà xuất bản Văn hóa
-    Dân tộc.
+* Khảo sát sự hội tụ của tổng độ dài bị loại bỏ.
 
-8.  Đỗ Văn Đức (2025), *Hành trình chinh phục Toán 12, Tập 1*, Nhà xuất
-    bản Văn hóa Dân tộc.
+## 3.6. Bọt biển Menger
 
-# 5. Sản phẩm của dự án {#sản-phẩm-của-dự-án .unnumbered}
+* Xây dựng mô hình khối lập phương trong không gian ba chiều.
 
-- **File PDF:** Bài tiểu luận hoàn chỉnh.
+* Mô phỏng quá trình chia khối và loại bỏ các khối lập phương.
+
+* Khảo sát sự thay đổi thể tích qua từng bước.
+
+* Trực quan hóa mô hình bằng Matplotlib.
+
+## 3.7. Hình vuông xoắn ốc
+
+* Xây dựng dãy các hình vuông đồng dạng.
+
+* Xác định tỉ số đồng dạng từ điều kiện hình học.
+
+* Thiết lập cấp số nhân biểu diễn diện tích các hình vuông.
+
+* Sử dụng SymPy để giải điều kiện xác định tỉ số đồng dạng.
+
+# 4. Kế hoạch & Tiến độ thực hiện
+
+## Tuần 1: Xây dựng cơ sở lý thuyết
+
+- Xác định nội dung, phạm vi và hướng triển khai đề tài.
+- Thu thập và nghiên cứu các tài liệu liên quan đến cấp số nhân, phép đồng dạng và các cấu trúc hình học lặp.
+- Hệ thống hóa kiến thức về dãy số và cấp số nhân.
+- Nghiên cứu cấp số nhân lùi vô hạn và các công thức liên quan.
+- Tìm hiểu tính lặp lại, phép đồng dạng và mối liên hệ với các đại lượng hình học.
+- Hoàn thành **Chương 1: Cơ sở lý thuyết**.
+
+## Tuần 2: Xây dựng và giải quyết các mô hình hình học
+
+- Nghiên cứu bài toán tấm thảm Sierpinski.
+- Nghiên cứu bài toán bông tuyết Koch.
+- Nghiên cứu bài toán tam giác Sierpinski.
+- Mở rộng sang đoạn thẳng Cantor, bọt biển Menger và hình vuông xoắn ốc.
+- Thiết lập các cấp số nhân tương ứng với chu vi, diện tích hoặc thể tích.
+- Tính toán và kiểm tra các kết quả bằng phương pháp toán học.
+- Hoàn thành **Chương 2: Các mô hình bài toán hình học cấp số điển hình**.
+
+## Tuần 3: Mô hình hóa, hoàn thiện và kiểm chứng
+
+- Tìm hiểu và triển khai các công cụ của SymPy phục vụ mô hình hóa hình học.
+- Xây dựng chương trình cho các mô hình bông tuyết Koch, tấm thảm Sierpinski, tam giác Sierpinski, đoạn thẳng Cantor, bọt biển Menger và hình vuông xoắn ốc.
+- Sử dụng SymPy để tính toán chính xác và kiểm chứng các kết quả lý thuyết.
+- Sử dụng Matplotlib để trực quan hóa các mô hình qua nhiều bước lặp.
+- Đối chiếu kết quả tính toán bằng chương trình với kết quả đã suy luận bằng phương pháp toán học.
+- Hoàn thiện **Chương 3: Ứng dụng SymPy trong mô hình hóa và tính toán**.
+- Hoàn thiện phần **Mở đầu** và **Kết luận**.
+- Rà soát nội dung, công thức, hình ảnh, mã nguồn và tài liệu tham khảo.
+- Hoàn thiện file PDF và các tài liệu đi kèm.
+
+# 5. Tài liệu tham khảo
+
+1. James Stewart, *Calculus*, 8th ed., Cengage Learning, Boston, 2016.
+
+2. Michael F. Barnsley, *Fractals Everywhere*, 2nd ed., Academic Press, Boston, 1993.
+
+3. Hà Huy Khoái (Tổng Chủ biên), Cung Thế Anh, Trần Văn Tấn, Đặng Hùng Thắng (đồng Chủ biên), *Toán 11, Tập 1 -- Kết nối tri thức với cuộc sống*, Nhà xuất bản Giáo dục Việt Nam.
+
+4. SymPy Development Team, *SymPy Documentation -- Geometry Module*, SymPy.
+
+5. Matplotlib Development Team, *Matplotlib Documentation -- mplot3d: Axes3D.voxels*, Matplotlib.
+
+6. Thái Nguyễn, *Chuyên đề: Ứng dụng của cấp số trong bài toán hình học*, Trung tâm luyện thi 29Edu, 2026.
+
+# 6. Sản phẩm của dự án
+
+- **File PDF:** Bài tiểu luận nhóm hoàn chỉnh.
 
 - **File TEX:** Mã nguồn LaTeX của bài tiểu luận.
 
-- **File MD:** Tài liệu hướng dẫn/ghi chú của dự án.
+- **File MD:** Tài liệu hướng dẫn và ghi chú của dự án.
 
-- **Thư mục hình ảnh:** Các hình ảnh được sử dụng trong bài tiểu luận.
+- **File Python:** Các chương trình sử dụng SymPy để tính toán và mô hình hóa.
+
+- **Thư mục hình ảnh:** Các hình ảnh minh họa được sử dụng trong bài tiểu luận.
+
+- **Mô hình trực quan:** Các hình học được xây dựng qua nhiều bước lặp bằng Python và Matplotlib.
+
+# 7. Công nghệ sử dụng
+
+- **Python:** Ngôn ngữ lập trình sử dụng để xây dựng các chương trình mô hình hóa.
+
+- **SymPy:** Thư viện tính toán biểu tượng, dựng tọa độ và kiểm chứng các kết quả toán học.
+
+- **Matplotlib:** Thư viện trực quan hóa các mô hình hình học và quá trình lặp.
+
+- **LaTeX:** Công cụ soạn thảo và trình bày bài tiểu luận.
+
+# 8. Thành viên nhóm
+
+**Nhóm sinh viên thực hiện:**
+
+- Đường Tiểu Quyên
+- Nguyễn Thị Thanh Hà
+- Nguyễn Kỳ Nam
+- Mai Bá Quốc
+
+**Giảng viên hướng dẫn:** TS. Nguyễn Đăng Minh Phúc
+
+**Khoa Toán học -- Trường Đại học Sư phạm Huế**
+
+**09/2026**
