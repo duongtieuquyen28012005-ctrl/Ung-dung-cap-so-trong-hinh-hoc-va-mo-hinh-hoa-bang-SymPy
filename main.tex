@@ -1,0 +1,1137 @@
+% ============================================================
+% TIỂU LUẬN HOÀN CHỈNH - ĐÃ HỢP NHẤT
+% Nguồn: Chuong1,2.txt + Chuong3.txt + Du_an_SymPy_nhom.md
+% 
+% DANH SÁCH ẢNH CẦN CHUẨN BỊ (đặt cùng thư mục với file .tex trên Overleaf):
+% --- Trang bìa & Chương 1-2 ---
+%   Hinh.jpg, Hinh1.jpg, Hinh2.jpg, Hinh3.jpg, Hinh4.jpg, Hinh5.jpg,
+%   Hinh6.jpg, Hinh7.jpg, Hinh8.jpg, Hinh9.jpg, Hinh10.jpg, Hinh11.jpg,
+%   Hinh12.jpg, Hinh13.jpg, Hinh14.jpg
+% --- Chương 3 (SymPy) ---
+%   koch_snowflake.png, sierpinski_carpet.png, sierpinski_triangle.png,
+%   cantor_set.png, menger_sponge.png, spiral_squares.png
+% (Các dòng \includegraphics{sierpinski_n0.png}... trong Chương 2 đang bị comment,
+%  có thể bỏ qua hoặc bỏ comment nếu bạn có file.)
+% ============================================================
+
+\documentclass[12pt,a4paper,oneside]{book}
+\usepackage[utf8]{vietnam}
+\usepackage{amsmath, amsthm, amssymb, latexsym, amscd, amsfonts, enumerate, titlesec, titletoc}
+\usepackage[top=3.0cm, bottom=3.0cm, left=3.5cm, right=2.0cm]{geometry}
+% căn lề theo quy chuẩn KLTN
+\usepackage{color, fancyhdr, graphicx, wrapfig}
+\usepackage[unicode]{hyperref}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{array}
+\usetikzlibrary{calc}
+\usepackage[most]{tcolorbox}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{listings}
+
+% ============================================================
+% BẢNG MÀU & KHUNG TỪ FILE 1
+% ============================================================
+\definecolor{myredtitle}{RGB}{140, 20, 20}
+\definecolor{myredborder}{RGB}{140, 20, 20}
+\newtcolorbox{khung}[1]{
+  enhanced,
+  colback=white,
+  colframe=myredborder,
+  boxrule=1pt,
+  arc=0pt,
+  colbacktitle=myredtitle,
+  coltitle=white,
+  fonttitle=\bfseries,
+  title={#1},
+  toptitle=2.5mm,
+  bottomtitle=2.5mm,
+  lefttitle=3mm,
+  righttitle=3mm,
+  top=4mm,
+  bottom=3mm,
+  left=4mm,
+  right=4mm
+}
+\definecolor{mybluetitle}{RGB}{35, 75, 120}
+\definecolor{myblueborder}{RGB}{35, 75, 120}
+
+\definecolor{mynavytitle}{RGB}{20, 40, 80}
+\definecolor{mynavyborder}{RGB}{20, 40, 80}
+
+\newtcolorbox{baitoan}[1]{
+  enhanced,
+  colback=white,
+  colframe=mynavyborder,
+  boxrule=1pt,
+  arc=0pt,
+  colbacktitle=mynavytitle,
+  coltitle=white,
+  fonttitle=\bfseries,
+  title={#1},
+  toptitle=2.5mm,
+  bottomtitle=2.5mm,
+  lefttitle=3mm,
+  righttitle=3mm,
+  top=4mm,
+  bottom=3mm,
+  left=4mm,
+  right=4mm
+}
+
+% ============================================================
+% BẢNG MÀU & MÔI TRƯỜNG CODE PYTHON TỪ FILE 2 (Chương 3)
+% ============================================================
+\definecolor{primaryColor}{HTML}{1B5E20}   % Forest Green (khung code Python)
+\definecolor{secondaryColor}{HTML}{2E7D32} % Green
+\definecolor{codeBg}{HTML}{E8F5E9}         % Light green background
+\definecolor{pyKeyword}{HTML}{1B5E20}      % Dark green keywords
+\definecolor{pyString}{HTML}{2E7D32}       % Medium green strings
+\definecolor{pyComment}{HTML}{6B8E6B}      % Soft green-gray comments
+
+\captionsetup{
+  font=small,
+  labelfont={bf,color=black},
+  labelsep=period,
+  justification=centering
+}
+
+\tcbuselibrary{listings, skins}
+
+\newtcblisting{pythoncode}[2][]{
+  enhanced,
+  arc=2mm,
+  boxrule=0.8pt,
+  colback=codeBg,
+  colframe=primaryColor,
+  fonttitle=\bfseries\sffamily\small,
+  title={#2},
+  coltitle=white,
+  attach boxed title to top left={xshift=5mm, yshift*=-3mm},
+  boxed title style={
+    size=small,
+    colback=primaryColor,
+    colframe=primaryColor,
+    arc=1.5mm
+  },
+  top=6mm,
+  bottom=3mm,
+  left=2mm,
+  right=2mm,
+  width=\textwidth,
+  listing only,
+  listing options={
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{pyKeyword}\bfseries,
+    stringstyle=\color{pyString},
+    commentstyle=\color{pyComment}\itshape,
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    numbersep=8pt,
+    xleftmargin=16pt,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=4
+  },
+  #1
+}
+
+% ============================================================
+% ĐỊNH NGHĨA CHAPTER / THEOREM TỪ FILE 1
+% ============================================================
+\def\chaptertitlename{\fontsize{14pt}{14pt}\selectfont{CHƯƠNG}}
+\titleformat{\chapter}[display]
+{\vspace{-2cm}\normalfont\Large\filcenter\bfseries}
+{{{\chaptertitlename\,}\thechapter}} {0pc}{{}\MakeUppercase}
+
+% Định dạng section/subsection toàn tài liệu: chữ đen + gạch ngang dưới
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{black}}
+  {\thesection}{1em}{}
+  [\vspace{0.3em}{\color{black}\titlerule}]
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{black}}
+  {\thesubsection}{1em}{}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Định lý}[section]
+\theoremstyle{definition}
+\newtheorem{theorem2}{Định nghĩa}[section]
+\newtheorem{dn}[theorem2]{Định nghĩa}
+\newtheorem{nx}[theorem2]{Nhận xét}
+\newtheorem{vd}[theorem2]{Ví dụ}
+\newtheorem{md}[theorem2]{Mệnh đề}
+\newtheorem{tc}[theorem2]{Tính chất}
+\newtheorem{bd}[theorem2]{Bổ đề}
+\newtheorem{dl}[theorem2]{Định lý}
+\newtheorem{bt}[theorem2]{Bài toán}
+\newtheorem{hq}[theorem2]{Hệ quả}
+\newtheorem{cy}[theorem2]{Chú ý}
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Proposition}[Theorem]{Proposition}
+\newtheorem{Remark}[Theorem]{Remark}
+\newtheorem{Lemma}[Theorem]{Lemma}
+\newtheorem{Corollary}[Theorem]{Corollary}
+\newtheorem{Definition}[Theorem]{Definition}
+\newtheorem{Example}[Theorem]{Example}
+\newcommand{\br}[1]{\left(#1\right)} %ngoặc tròn
+\newcommand{\brb}[1]{\left\{#1\right\}} %ngoặc nhọn, tập hợp
+\newcommand{\brc}[1]{\left[#1\right]} %ngoặc vuông
+\newcommand{\bao}[1]{\left<#1\right>}
+\newcommand{\tri}[1]{\left|#1\right|}
+\newcommand{\flo}[1]{ \left \lfloor #1 \right \rfloor}
+\newtheorem*{case1}{Trường hợp 1}
+\newtheorem*{case2}{Trường hợp 2}
+\newtheorem*{case3}{Trường hợp 3}
+\newcommand{\aut}[1]{\mbox{Aut}\br{#1}}
+\newcommand{\gal}[1]{\mbox{Gal}\br{#1}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+\normalsize
+\pagestyle{fancy}
+\makeatletter
+\renewcommand{\ps@plain}{
+	\renewcommand{\@oddfoot}{\textrm{\centerline{\thepage}}}
+	\renewcommand{\@evenfoot}{\@oddfoot}
+	\renewcommand{\@oddhead}{}
+	\renewcommand{\@evenhead}{\@oddhead}}
+\pagestyle{plain}
+
+\begin{document}
+	\fontsize{13pt}{18pt}\selectfont % Lệnh thay đổi cỡ chữ thành cỡ 14, cỡ dòng 18 (theo quy chuẩn của Khóa Luận TN).
+	\setlength{\baselineskip}{26truept}
+	%\fontsize{13pt}{14pt}\selectfont
+	\pagenumbering{arabic}
+	%\pagenumbering{roman}
+	%\frontmatter
+	\pagestyle{empty}
+	\begin{titlepage}
+		\begin{tikzpicture}[remember picture,overlay,inner sep=0,outer sep=0]
+			\draw[black,line width=3pt] ([xshift=-1.5cm,yshift=-2cm]current page.north east) coordinate (A)--([xshift=2.5cm,yshift=-2cm]current page.north west) coordinate(B)--([xshift=2.5cm,yshift=2cm]current page.south west) coordinate (C)--([xshift=-1.5cm,yshift=2cm]current page.south east) coordinate(D)--cycle;
+			
+			\draw[black,line width=1pt] ([xshift=-1.7cm,yshift=-2.2cm]current page.north east) coordinate (A)--([xshift=2.7cm,yshift=-2.2cm]current page.north west) coordinate(B)--([xshift=2.7cm,yshift=2.2cm]current page.south west) coordinate (C)--([xshift=-1.7cm,yshift=2.2cm]current page.south east) coordinate(D)--cycle;
+			
+		\end{tikzpicture}
+		\begin{center}
+			\vspace{-1cm}\textbf{TRƯỜNG ĐẠI HỌC SƯ PHẠM HUẾ}
+			
+			\vspace{7pt}
+			\bf\underline{KHOA TOÁN HỌC}
+		\end{center}
+		\vspace{0.5cm}
+        \begin{center}
+        \includegraphics[width=0.4\textwidth]{Hinh.jpg}
+        \end{center}
+        \vspace{0.5cm}
+		\begin{center}
+			\fontsize{14pt}{13pt}\selectfont 
+			\textbf{TIỂU LUẬN TÍCH HỢP CNTT TRONG DẠY HỌC TOÁN } 
+
+		\end{center}
+		\vspace{0.5cm}
+		\begin{center}
+			\fontsize{18pt}{17pt}\selectfont 
+			\hspace{-0.2 cm}\bf\fontsize{17pt}{19}\selectfont ỨNG DỤNG CẤP SỐ TRONG HÌNH HỌC VÀ MÔ HÌNH HÓA BẰNG SYMPY
+		\end{center}	
+		
+		\vspace{1cm}
+		\begin{tabular}{@{}l@{\hspace{1.0cm}}l@{}}
+        \textbf{Nhóm sinh viên thực hiện:} & ĐƯỜNG TIỂU QUYÊN\\
+        & NGUYỄN THỊ THANH HÀ\\
+        & NGUYỄN KỲ NAM\\
+        & MAI BÁ QUỐC\\[0.8cm]
+        \textbf{Giảng viên hướng dẫn:} & TS. NGUYỄN ĐĂNG MINH PHÚC
+        \end{tabular}
+		\vfill
+        
+        
+        \centerline {\bf Huế, 09/2026}
+	\end{titlepage}
+	
+	
+	
+	\fontsize{13pt}{18pt}\selectfont % Lệnh thay đổi cỡ chữ thành cỡ 14, cỡ dòng 18 (theo quy chuẩn của Khóa Luận TN).
+	\setlength{\baselineskip}{26truept}
+	%\fontsize{13pt}{14pt}\selectfont
+	\pagenumbering{arabic}
+	%\pagenumbering{roman}
+	%\frontmatter
+	\pagestyle{empty}
+	
+	
+	\begin{titlepage}
+		\centerline{ \bf TRƯỜNG ĐẠI HỌC SƯ PHẠM}
+		\centerline{\bf\underline{KHOA TOÁN HỌC}}
+		%\centerline{\bf KHOA TOÁN }
+		\vspace*{3.0cm}
+		\vspace*{3cm}
+		\begin{center}
+			\fontsize{18pt}{17pt}\selectfont 
+			\bf\fontsize{17pt}{19}\selectfont ỨNG DỤNG CẤP SỐ TRONG HÌNH HỌC VÀ MÔ HÌNH HÓA BẰNG SYMPY
+		\end{center}	
+		\vspace*{1cm}
+		
+		\vspace*{2.5cm}
+		
+		\centerline{\bf\fontsize{15pt}{16}\selectfont  TIỂU LUẬN TÍCH HỢP CNTT TRONG DẠY HỌC TOÁN}
+		\vspace*{1cm}
+		
+		\center{ Cán bộ hướng dẫn khoa học} 
+		\centerline{\bf\fontsize{14pt}{16}\selectfont {TS NGUYỄN ĐĂNG MINH PHÚC}}
+		
+		%\hspace{8cm}\parbox{7cm}{}
+		%\vspace*{2.5cm}
+		\vfill
+		
+		\centerline{\bf Huế, 09/2026}
+	\end{titlepage}
+	\newpage
+	\newpage
+	
+	
+	%\setcounter{page}{3}
+	%%%%%%%%%%%%%%%%%%%%%%%
+	%\pagenumbering{roman}
+	\markboth{{\it Mục lục}}{{\it Mục lục}}
+	%\addcontentsline{toc}{section}{{\bf Mục lục\rm }}
+	%\cleardoublepage
+	
+	%{\protect\thispagestyle{empty}}
+	%%%%%%%%%%%%%%
+	%\include{Loicamdoan}
+	%\pagenumbering{arabic}
+	% \pagestyle{headings}
+	\newpage
+	\newpage
+	\def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
+		\if@mainmatter
+		\refstepcounter{chapter}%
+		\typeout{\@chapapp\space\thechapter.}%
+		\addcontentsline{toc}{chapter}%
+		{\bf  Chương \protect\numberline{\thechapter. } #1}%
+		\else
+		\addcontentsline{toc}{chapter}{ #1}%
+		\fi
+		\else
+		\addcontentsline{toc}{chapter}{ #1}%
+		\fi
+		\chaptermark{#1}%
+		\addtocontents{lof}{\protect\addvspace{10\p@}}%
+		\addtocontents{lot}{\protect\addvspace{10\p@}}%
+		\if@twocolumn
+		\@topnewpage[\@makechapterhead{#2}]%
+		\else
+		\@makechapterhead{#2}%
+		\@afterheading
+		\fi}
+	%\setcounter{page}{3}
+	%%%%%%%%%%%%%%%%%%%%%%%
+	%\pagenumbering{roman}
+	\markboth{{\it Mục lục}}{{\it Mục lục}}
+	\tableofcontents
+	% Đây này
+	\pagestyle{plain}
+	
+\chapter*{LỜI CẢM ƠN}
+\addcontentsline{toc}{chapter}{LỜI CẢM ƠN}
+\fontsize{13pt}{22pt}\selectfont
+
+Trong quá trình thực hiện tiểu luận ``Ứng dụng cấp số trong hình học và mô hình hóa bằng SymPy'', nhóm chúng tôi đã nhận được sự hướng dẫn, chỉ bảo tận tình của TS. Nguyễn Đăng Minh Phúc. Thầy đã giúp nhóm định hướng cách tiếp cận đề tài, góp ý về cấu trúc nội dung và cách trình bày các kết quả toán học sao cho mạch lạc, đồng thời gợi mở cho nhóm hướng khai thác công cụ Công nghệ thông tin (cụ thể là thư viện SymPy) để minh họa và kiểm chứng các mô hình đã xây dựng. Nhóm xin được gửi lời cảm ơn chân thành và sâu sắc đến Thầy.
+
+Nhóm cũng xin cảm ơn Khoa Toán học, Trường Đại học Sư phạm Huế đã tạo điều kiện học tập thuận lợi để nhóm có cơ hội tìm hiểu sâu hơn về mối liên hệ giữa cấp số nhân và các cấu trúc hình học tự đồng dạng, cũng như cơ hội thực hành tích hợp công nghệ thông tin vào quá trình học tập môn Toán.
+
+Mặc dù đã cố gắng hoàn thiện tiểu luận một cách tốt nhất, do thời gian và kiến thức còn hạn chế nên bài làm khó tránh khỏi những thiếu sót. Nhóm rất mong nhận được sự góp ý của Thầy để tiểu luận được hoàn chỉnh hơn.
+
+Chúng tôi xin chân thành cảm ơn.
+
+\begin{flushright}
+Huế, tháng 09 năm 2026
+
+\textit{Nhóm thực hiện.}
+\end{flushright}
+
+\chapter*{MỞ ĐẦU}
+\addcontentsline{toc}{chapter}{MỞ ĐẦU}
+\fontsize{13pt}{18pt}\selectfont
+\setlength{\baselineskip}{26truept}
+
+\noindent\textbf{1. Lý do chọn đề tài}
+
+Trong tự nhiên cũng như trong toán học, có rất nhiều cấu trúc được hình thành không phải qua một phép dựng hình đơn lẻ, mà qua sự lặp đi lặp lại của một quy tắc biến đổi đơn giản: chiếc lá dương xỉ, bông tuyết Von Koch, tấm thảm hay khối lập phương Sierpinski\ldots{} Điều thú vị là đằng sau vẻ ngoài phức tạp của những hình ảnh ấy luôn ẩn chứa một quy luật đại số rất quen thuộc đối với người học Toán ở bậc phổ thông và đại học: cấp số nhân. Mỗi khi một hình được tạo ra bằng cách lặp lại một phép đồng dạng tỉ số $k$, các đại lượng chu vi, diện tích, thể tích tương ứng lại lập thành những cấp số nhân với công bội $k$, $k^2$, $k^3$. Việc nhận ra và khai thác mối liên hệ này giúp biến những câu hỏi hình học tưởng chừng rất khó (tính tổng chu vi, diện tích của một hình được lặp vô hạn lần) thành những bài toán đại số quen thuộc, có thể giải trọn vẹn bằng công thức tổng cấp số nhân lùi vô hạn.
+
+Song song đó, việc tính toán và vẽ minh họa các cấu trúc lặp nhiều bước (đặc biệt là trong không gian ba chiều như bọt biển Menger) bằng tay là rất khó khăn và dễ sai sót. Đây chính là chỗ công nghệ thông tin, cụ thể là các công cụ tính toán biểu tượng (\textit{symbolic computation}), có thể hỗ trợ hiệu quả. Thư viện SymPy của Python cho phép biểu diễn tọa độ, độ dài, diện tích, thể tích dưới dạng chính xác (phân số, căn thức) thay vì số thập phân gần đúng, nhờ đó có thể kiểm chứng trực tiếp các công thức đã suy luận bằng tay ở Chương 2, đồng thời kết hợp với Matplotlib để trực quan hóa hình ảnh qua từng bước lặp. Đó là lý do nhóm chọn đề tài ``Ứng dụng cấp số trong hình học và mô hình hóa bằng SymPy'', nhằm vừa củng cố kiến thức về cấp số nhân, vừa thực hành tích hợp công nghệ thông tin vào việc dạy và học Toán.
+
+\noindent\textbf{2. Mục tiêu, nhiệm vụ nghiên cứu}
+
+Mục tiêu của tiểu luận là hệ thống hóa cơ sở lý thuyết về dãy số, cấp số nhân và phép đồng dạng; vận dụng cơ sở lý thuyết đó để khảo sát chu vi, diện tích (hoặc thể tích) của một số cấu trúc hình học lặp điển hình; và xây dựng chương trình minh họa bằng SymPy để mô phỏng, tính toán, kiểm chứng các kết quả đã suy luận bằng tay. Để đạt được mục tiêu này, nhóm thực hiện các nhiệm vụ: (i) trình bày các khái niệm công cụ về dãy số, cấp số nhân, tính lặp lại và phép đồng dạng; (ii) giải chi tiết các bài toán hình học cấp số điển hình: tấm thảm Sierpinski, bông tuyết Koch, tam giác Sierpinski, cùng ba bài toán mở rộng là đoạn thẳng Cantor, bọt biển Menger và hình vuông xoắn ốc; (iii) viết chương trình SymPy cho từng bài toán để dựng tọa độ chính xác, tính chu vi/diện tích/thể tích theo từng bước và đối chiếu với công thức lý thuyết, đồng thời vẽ hình minh họa qua nhiều bước lặp.
+
+\noindent\textbf{3. Đối tượng và phạm vi nghiên cứu}
+
+Đối tượng nghiên cứu là mối liên hệ giữa cấp số nhân và các đại lượng hình học (chu vi, diện tích, thể tích) của những cấu trúc được tạo thành qua phép lặp một phép đồng dạng, cùng việc mô hình hóa các cấu trúc đó bằng thư viện SymPy. Phạm vi nghiên cứu giới hạn ở sáu cấu trúc cụ thể: bông tuyết Von Koch, tấm thảm Sierpinski, tam giác Sierpinski, đoạn thẳng Cantor, bọt biển Menger và hình vuông xoắn ốc; các khía cạnh sâu hơn của lý thuyết fractal (số chiều Hausdorff, độ đo fractal tổng quát) không thuộc phạm vi của tiểu luận.
+
+\chapter{CƠ SỞ LÝ THUYẾT}
+\noindent Trong chương này, chúng tôi trình bày một số kiến thức cơ sở làm nền tảng cho việc nghiên cứu các cấu trúc hình học được hình thành qua quá trình lặp lại. Trước hết, các khái niệm về dãy số và cấp số nhân được nhắc lại nhằm mô tả sự thay đổi của các đại lượng qua từng bước. Tiếp đó, từ ý tưởng về sự lặp lại trong đại số, chương chuyển sang các khái niệm hình học như tính tự đồng dạng và phép đồng dạng. Những kết quả này sẽ là cơ sở để khảo sát mối quan hệ giữa quy luật lặp và sự thay đổi của các đại lượng hình học trong những phần tiếp theo.
+\section{Một số khái niệm về dãy số}
+    \noindent Trong quá trình nghiên cứu các đối tượng được hình thành hoặc thay đổi theo từng bước, việc mô tả các giá trị tương ứng ở mỗi bước là một nhu cầu cơ bản. Dãy số là một trong những công cụ đơn giản nhưng hữu ích để biểu diễn sự thay đổi đó. Trước hết, ta nhắc lại một số khái niệm cơ bản về dãy số.
+\begin{khung} {Dãy số}
+    \begin{itemize}
+    \item Mỗi hàm số xác định trên tập các số nguyên dương $\mathbb{N}^*$ được gọi là một \textcolor{red} {dãy số} kí hiệu là $u=u(n)$.
+
+    \item Ta thường viết $u_n$ thay cho $u(n)$ và kí hiệu dãy số $u=u(n)$ bởi $(u_n)$, do đó dãy số $(u_n)$ viết dưới dạng khai triển là $u_1,u_2,u_3,\ldots$.\\
+    Số $u_1$ gọi là \textcolor{red}{số hạng đầu}, $u_n$ là số hạng thứ $n$ và gọi là \textcolor{red}{số hạng tổng quát} của dãy số.
+\end{itemize}
+\end{khung}
+   \noindent Tùy vào đặc điểm của bài toán và cách thức xây dựng các số hạng, một dãy số có thể được biểu diễn theo nhiều cách khác nhau. Các cách biểu diễn này cho phép mô tả dãy số từ việc liệt kê trực tiếp các số hạng đến việc xây dựng chúng thông qua một quy luật xác định.
+    \begin{khung} {Cách cho dãy số}
+    Một dãy số có thể cho bằng:   
+    \begin{itemize}
+        \item Liệt kê các số hạng (chỉ dùng cho các dãy hữu hạn và có ít số hạng);
+        \item Công thức của số hạng tổng quát;
+        \item Phương pháp mô tả;
+        \item Phương pháp truy hồi.
+    \end{itemize}
+    \end{khung}
+       \noindent Trong nhiều trường hợp, số hạng của dãy không được xác định trực tiếp mà được xây dựng từ một hoặc một số số hạng đã biết trước. Cách xây dựngnày đặc biệt phù hợp khi mỗi bước của quá trình phụ thuộc vào các bước trước đó. Khi đó, ta có khái niệm dãy số truy hồi.
+        \begin{khung} {Dãy số truy hồi}
+        Một \textcolor{red} {dãy số truy hồi} là một dãy số trong đó mỗi số hạng sau được xác định bởi một hoặc nhiều số hạng trước đó thông qua một công thức truy hồi. Công thức này thường có dạng:
+        \[
+        u_{n+1} = f(u_n, u_{n-1}, \dots, u_{n-k+1})
+        \]
+        
+        Trong đó, $u_{n+1}$ là \textcolor{red} {số hạng tiếp theo}, và $f$ là một hàm số xác định.
+    \end{khung}
+
+    \noindent \textit{\textbf{Ví Dụ}} (Dãy Fibonacci): Dãy Fibonacci bắt đầu với hai số 0 và 1, và mỗi số hạng tiếp theo bằng tổng của hai số hạng trước đó. Công thức truy hồi là $F_n = F_{n-1} + F_{n-2}$ với $F_0 = 0$ và $F_1 = 1$.
+    \section{Cấp số nhân}
+    Để tính toán được tổng chu vi hay diện tích của một dãy các cấu trúc hình học lặp lại đến vô hạn, kiến thức nền tảng về đại số, cụ thể là cấp số nhân, là công cụ không thể thiếu.
+
+\begin{khung}{Cấp số nhân}
+ \textcolor{red} {Cấp số nhân} là một dãy số (hữu hạn hoặc vô hạn), trong đó kể từ số hạng thứ hai, mỗi số hạng đều bằng số hạng đứng ngay trước nó nhân với một số không đổi $q$. Số $q$ được gọi là \textcolor{red} {công bội} của cấp số nhân.
+\[
+u_{n+1} = u_n \cdot q \quad (n \ge 1)
+\]
+Nếu một cấp số nhân có số hạng đầu $u_1$ và công bội $q$, thì số hạng tổng quát $u_n$ được xác định theo công thức:
+\[
+u_n = u_1 \cdot q^{n-1} \quad (n \ge 2)
+\]
+\end{khung}
+    \noindent Bên cạnh việc xác định từng số hạng, trong nhiều bài toán ta còn quan tâm đến tổng của các đại lượng xuất hiện qua nhiều bước. Đối với cấp số nhân, tổng các số hạng đầu có thể được xác định trực tiếp thông qua công thức sau.
+    \begin{khung}{Tổng n số hạng đầu của cấp số nhân}
+    Cho cấp số nhân $(u_n)$ có công bội $q \neq 1$. \textcolor{red} {Tổng $n$ số hạng đầu tiên} $S_n = u_1 + u_2 + \dots + u_n$ được tính bởi công thức:
+    \[
+    S_n = \frac{u_1(1 - q^n)}{1 - q}
+    \]
+    Nếu $q = 1$ thì dãy số trở thành \textcolor{red} {dãy không đổi} và $S_n = n \cdot u_1$.
+    \end{khung}
+
+    \noindent \textit{\textbf{Chú ý:}} Với cấp số nhân lùi vô hạn ($|q| < 1$), khi số lượng số hạng $n$ tiến tới dương vô cực ($n \to +\infty$) thì giới hạn của $q^n$ tiến về $0$. Do đó, tổng của tất cả vô số các số hạng trong cấp số nhân lùi vô hạn này (ký hiệu là $S$) sẽ hội tụ về một giá trị hữu hạn:
+    \[
+    S = u_1 + u_2 + u_3 + \dots + u_n + \dots = \frac{u_1}{1 - q}
+    \]
+\section{Tính lặp lại và Phép đồng dạng}
+    \noindent Các kiến thức về dãy số và cấp số nhân ở trên cung cấp công cụ để mô tả những đại lượng thay đổi theo một quy luật nhất định. Trong hình học, một ý tưởng tương tự xuất hiện khi một hình được tạo ra bằng cách thực hiện lặp lại cùng một quy tắc trên các hình đã có. Từ đó, ta có thể sử dụng các khái niệm về tính lặp lại và phép đồng dạng để mô tả sự hình thành của những cấu trúc hình học có quy luật.
+    
+    \noindent Cách tạo ra các hình khối có tính tự đồng dạng sẽ yêu cầu bạn phải lặp đi lặp lại một hành động nhiều lần, đây chính là tính lặp lại: tạo ra hình mới bằng cách biến đổi hình cũ theo một quy tắc nào đó. Nó giống như việc tìm số hạng của dãy số bằng công thức truy hồi: $u_{n+1} = f(u_n)$ trong đó $f$ là một phép biến đổi, một quy tắc nào đó cho trước.
+    
+    \noindent \textbf{\textit{Ví dụ}} (Bông tuyết Koch) là hình được bắt đầu từ một hình tam giác đều và qua mỗi bước lặp, mỗi đoạn thẳng được chia làm ba phần bằng nhau, đoạn giữa được thay thế bằng hai cạnh của một tam giác đều nhỏ hơn.
+    \begin{center}
+        \includegraphics[width=1.0 \textwidth ]{Hinh1.jpg}
+    \end{center}
+    Điểm mấu chốt của một số cấu trúc tự đồng dạng chính là phép đồng dạng, nên ta sẽ ôn lại một chút về phép biến đổi hình học này thông qua định nghĩa bên dưới.
+
+    \begin{khung}{Phép đồng dạng}
+    Phép biến hình $F$ được gọi là \textcolor{red} {phép đồng dạng tỉ số $k$} ($k > 0$) nếu với hai điểm $M, N$ bất kỳ và ảnh $M', N'$ tương ứng của chúng, ta luôn có:
+    \[
+    M'N' = k \cdot MN
+    \]
+    \end{khung}
+    \begin{center}
+        \includegraphics[width=1.0\textwidth]{Hinh2.jpg}
+    \end{center}
+    \textit{\textbf{Chú ý:}} Phép đồng dạng khác với phép vị tự cần tâm $O$ và tỉ số $k (k \neq 0)$, phép đồng dạng chỉ quan tâm đến tỉ lệ khoảng cách tương đối giữa các điểm mà không cần một tâm biến hình cụ thể.
+    
+    \noindent Từ định nghĩa phép đồng dạng, không chỉ các độ dài tương ứng có mối quan hệ theo một tỉ lệ cố định mà các đại lượng hình học khác như diện tích và thể tích cũng thay đổi theo những quy luật tương ứng. Kết quả dưới đây cho phép xác định trực tiếp mối quan hệ giữa các đại lượng này khi hai hình đồng dạng.
+    \begin{khung}{Định lý về tỉ số diện tích và thể tích của các hình đồng dạng}
+    Nếu hai hình phẳng (hoặc khối hình trong không gian) $H$ và $H'$ đồng dạng với nhau theo tỉ số $k$ ($k > 0$) thì:
+    \begin{itemize}
+        \item Tỉ số giữa các đoạn thẳng tương ứng (hoặc chu vi tương ứng $P$ và $P'$) bằng $k$: $\qquad \qquad \qquad \dfrac{P'}{P} = k$
+        \item Tỉ số giữa hai diện tích tương ứng $S$ và $S'$ bằng bình phương tỉ số đồng dạng: $\qquad \qquad \qquad \dfrac{S'}{S} = k^2$
+        \item Tỉ số giữa hai thể tích tương ứng $V$ và $V'$ bằng lập phương tỉ số đồng dạng:$\quad \qquad \qquad \qquad \qquad \dfrac{V'}{V} = k^3$
+    \end{itemize}
+    \end{khung}
+    \textbf{Hệ quả ứng dụng vào Cấp số nhân:} Khi một cấu trúc hình học được tạo nên bằng cách lặp lại liên tiếp một phép đồng dạng với tỉ số $k$ ($k \neq 0$):
+
+\begin{enumerate}
+    \item Dãy các chu vi tương ứng tạo thành một cấp số nhân với công bội $q = k$.
+    \item Dãy các diện tích tương ứng tạo thành một cấp số nhân với công bội $q = k^2$.
+    \item Dãy các thể tích tương ứng tạo thành một cấp số nhân với công bội $q = k^3$.
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    %Phần 2%
+
+
+\chapter{CÁC MÔ HÌNH BÀI TOÁN HÌNH HỌC CẤP SỐ ĐIỂN HỈNH}
+\section{Bài toán tấm thảm Sierpinski}
+    \begin{baitoan}{Tấm thảm Sierpinski}
+    Một hình vuông có cạnh bằng $a$. Chia hình vuông đó thành 9 hình vuông bằng nhau và bỏ đi hình vuông ở chính giữa. Với mỗi hình vuông nhỏ hơn chưa bị bỏ đi, lại chia thành 9 hình vuông bằng nhau và bỏ đi hình vuông ở chính giữa. Cứ thế, quá trình trên được lặp lại. 
+    \begin{center}
+        \includegraphics[width=0.35 \textwidth]{Hinh3.jpg}
+    \end{center}
+    \end{baitoan}
+    \noindent Ta sẽ khảo sát chu vi và diện tích phần còn lại của hình vuông ban đầu sau vô hạn lần chia.
+    
+    \noindent \textbf{a) Khảo sát chu vi tấm thảm}
+
+Chu vi của tấm thảm ở bước thứ $n$ ($P_n$) bao gồm chu vi hình vuông lớn bên ngoài cộng với tổng chu vi của tất cả các lỗ hổng hình vuông đã bị loại bỏ tính đến bước đó.
+
+\begin{itemize}
+    \item Gọi $P_0$ là chu vi hình vuông biên ngoài ban đầu: $P_0 = 4a$.
+    \begin{center}
+        \includegraphics[width=0.3 \textwidth]{Hinh4.jpg}
+    \end{center}
+    \item \textbf{Lần 1:} Ta tạo ra 1 lỗ hổng hình vuông cạnh $\dfrac{a}{3}$. Chu vi tăng thêm là:
+    \[
+    \Delta P_1 = 4 \cdot \dfrac{a}{3} = \dfrac{4a}{3}
+    \]
+    \begin{center}
+        \includegraphics[width=0.3 \textwidth]{Hinh5.jpg}
+    \end{center}
+    \item \textbf{Lần 2:} Ta tạo thêm 8 lỗ hổng hình vuông cạnh $\dfrac{a}{9}$. Tổng chu vi tăng thêm ở bước này là:
+    \[
+    \Delta P_2 = 8 \cdot \left(4 \cdot \dfrac{a}{9}\right) = \dfrac{32a}{9} = \frac{4a}{3} \cdot \left(\frac{8}{3}\right)
+    \]
+    \begin{center}
+        \includegraphics[width=0.3 \textwidth]{Hinh6.jpg}
+    \end{center}
+    \item \textbf{Lần $n$:} Số lượng lỗ hổng tạo thêm là $8^{n-1}$, mỗi lỗ hổng có cạnh $\dfrac{a}{3^n}$. Tổng chu vi tăng thêm là:
+    \[
+    \Delta P_n = 8^{n-1} \cdot \left(4 \cdot \frac{a}{3^n}\right) = 4a \cdot \frac{8^{n-1}}{3^n} = \frac{4a}{3} \left(\frac{8}{3}\right)^{n-1}
+    \]
+    Dãy các chu vi tăng thêm $\Delta P_1, \Delta P_2, \dots, \Delta P_n$ là một cấp số nhân gồm $n$ số hạng, với số hạng đầu $u_1 = \dfrac{4a}{3}$ và công bội $q = \dfrac{8}{3}$.
+    
+    \item \textbf{Tổng chu vi sau $n$ lần chia:}
+    \begin{align*}
+    P_n &= P_0 + \Delta P_1 + \Delta P_2 + \dots + \Delta P_n = 4a + \frac{4a}{3} \cdot \frac{\left(\frac{8}{3}\right)^n - 1}{\frac{8}{3} - 1} \\
+    &= 4a + \frac{4a}{3} \cdot \frac{\left(\dfrac{8}{3}\right)^n - 1}{\frac{5}{3}} = 4a + \frac{4a}{5} \left[\left(\frac{8}{3}\right)^n - 1\right] \\
+    &= \frac{16a}{5} + \frac{4a}{5}\left(\frac{8}{3}\right)^n
+    \end{align*}
+    
+    \item \textbf{Sau vô hạn lần chia ($n \to +\infty$):} Vì $\dfrac{8}{3} > 1$ nên $\displaystyle \lim_{n \to +\infty} \left(\dfrac{8}{3}\right)^n = +\infty$. Suy ra:
+    \[
+    \lim_{n \to +\infty} P_n = +\infty
+    \]
+\end{itemize}
+\textbf{b) Khảo sát diện tích phần còn lại}
+
+Để giải quyết bài toán này, chúng ta có thể tính tổng diện tích các phần đã bị loại bỏ, rồi lấy diện tích hình vuông ban đầu trừ đi.
+
+\begin{itemize}
+    \item \textbf{Lần 1:} Bỏ đi 1 hình vuông có cạnh $\dfrac{a}{3}$. Diện tích bị bỏ đi là:
+    \[
+    u_1 = 1 \cdot \left(\dfrac{a}{3}\right)^2 = \frac{1}{9}a^2
+    \]
+    
+    \item \textbf{Lần 2:} Còn lại 8 hình vuông, mỗi hình vuông ta bỏ đi 1 hình vuông nhỏ ở giữa có cạnh $\dfrac{a}{9}$. Diện tích bị bỏ đi thêm là:
+    \[
+    u_2 = 8 \cdot \left(\frac{a}{9}\right)^2 = \frac{8}{81}a^2 = u_1 \cdot \left(\frac{8}{9}\right)
+    \]
+    
+    \item \textbf{Lần 3:} Còn lại $8 \times 8 = 64$ hình vuông nhỏ hơn, mỗi hình ta bỏ đi 1 hình vuông có cạnh $\dfrac{a}{27}$. Diện tích bị bỏ đi thêm là:
+    \[
+    u_3 = 64 \cdot \left(\frac{a}{27}\right)^2 = \frac{64}{729}a^2 = u_1 \cdot \left(\frac{8}{9}\right)^2
+    \]
+    
+    \item \textbf{Lần $n$:} Có thể thấy dãy diện tích bị loại bỏ ở từng bước $(u_n)$ lập thành một cấp số nhân với số hạng đầu $u_1 = \dfrac{1}{9}a^2$ và công bội $q' = \dfrac{8}{9}$.
+    
+    \item \textbf{Tổng diện tích bị bỏ đi sau vô hạn lần:} Vì $|q'| = \dfrac{8}{9} < 1$, đây là một cấp số nhân lùi vô hạn. Tổng diện tích các phần bị khoét đi là:
+    \[
+    S_{\text{bỏ}} = u_1 + u_2 + u_3 + \dots = \dfrac{u_1}{1 - q'} = \frac{\dfrac{1}{9}a^2}{1 - \dfrac{8}{9}} = \frac{\dfrac{1}{9}a^2}{\dfrac{1}{9}} = a^2
+    \]
+    
+    \item \textbf{Kết luận:} Sau vô hạn bước, tổng diện tích các phần bị khoét bỏ đi đúng bằng diện tích hình vuông ban đầu ($a^2$). Do đó, diện tích phần thảm còn lại là:
+    \[
+    S_{\text{còn lại}} = S_{\text{ban đầu}} - S_{\text{bỏ}} = a^2 - a^2 = 0
+    \]
+\end{itemize}
+\newpage
+\section{Bài toán bông tuyết Koch}
+    \begin{baitoan}{Bông tuyết của Von Koch}
+    Ta bắt đầu với một tam giác đều cạnh $a$ (đơn vị độ dài) và thực hiện quá trình lặp:
+    \begin{itemize}
+    \item \textbf{Bước 1 ($n = 1$):} Bắt đầu với một tam giác đều.
+    \item \textbf{Bước 2 ($n = 2$):} Chia mỗi cạnh của tam giác thành 3 đoạn bằng nhau. Xóa đoạn ở giữa và thay thế bằng hai đoạn thẳng tạo thành một tam giác đều nhỏ hướng ra ngoài.
+    \item \textbf{Bước $n$ ($n \ge 3$):} Tiếp tục lặp lại quá trình trên, thay thế đoạn thẳng ở giữa của mỗi cạnh bằng một "mũi nhọn" tam giác đều hướng ra ngoài.
+\end{itemize}
+        \begin{center}
+        \includegraphics[width=1.0 \textwidth]{Hinh7.jpg}
+\begin{figure}
+            \centering
+            \includegraphics[width=1\linewidth]{Hinh7.jpg}
+\begin{figure}
+                \centering
+                \includegraphics[width=1\linewidth]{Hinh7.jpg}
+                \caption{Enter Caption}
+                \label{fig:placeholder}
+            \end{figure}
+                        \caption{Enter Caption}
+            \label{fig:placeholder}
+        \end{figure}
+                \end{center}
+    \end{baitoan}
+    Ta sẽ khảo sát chu vi và diện tích hình được tạo ra sau vô hạn lần thực hiện phép lặp như trên.
+   
+    \noindent \textbf{a) Khảo sát chu vi bông tuyết Koch}
+    \begin{itemize}
+        \item Ở bước 1, tam giác đều ban đầu có 3 cạnh, mỗi cạnh dài $a$. Chu vi $P_1 = 3a$.
+        
+        \item Qua mỗi bước, một đoạn thẳng được chia làm 3 phần, xóa phần ở giữa và thay bằng 2 đoạn thẳng mới có cùng độ dài (tạo thành "mũi nhọn") nên 1 đoạn thẳng sẽ biến thành 4 đoạn thẳng mới, mỗi đoạn có độ dài bằng $\frac{1}{3}$ đoạn cũ.
+    \end{itemize}
+    
+    \begin{center}
+    \includegraphics[width=0.5\textwidth]{Hinh8.jpg}
+    \end{center}
+    
+    Do đó, chu vi của hình mới luôn bằng $\dfrac{4}{3}$ chu vi của hình ở bước trước. Dãy số chu vi $(P_n)$ là một cấp số nhân có số hạng đầu $P_1 = 3a$ và công bội $q = \dfrac{4}{3}$.
+    
+    \begin{itemize}
+        \item Công thức chu vi ở bước thứ $n$ là:
+        \[
+        P_n = P_1 \cdot q^{n-1} = 3 \cdot \left(\dfrac{4}{3}\right)^{n-1}
+        \]
+        \item \textbf{Sau vô hạn lần chia} $(n \to +\infty)$: Vì $\dfrac{4}{3}>1$ nên $\displaystyle \lim_{n \to + \infty} \left(\dfrac{4}{3}\right)^{n-1}=+\infty$
+
+        Suy ra: 
+        $$\lim_{n \to + \infty}P_n=+\infty$$
+    \end{itemize}
+    \noindent \textbf{b) Khảo sát diện tích bông tuyết Koch}
+    \begin{itemize}
+    \item Diện tích tam giác đều cạnh $a$ ban đầu: $S_1 = \dfrac{a^2\sqrt{3}}{4}$.
+    
+    \item Qua mỗi bước, số cạnh của bông tuyết tăng lên 4 lần nhưng chiều dài mỗi cạnh lại giảm đi 3 lần. Như vậy, số cạnh của bông tuyết ở bước thứ $n$ ($n \ge 2$) là $N_n = 3 \cdot 4^{n-1}$ cạnh và mỗi cạnh có độ dài $a \left(\dfrac{1}{3}\right)^{n-1}$.
+    \end{itemize}
+        \begin{center}
+        \includegraphics[width=1.0 \textwidth]{Hinh9.jpg}
+        \end{center}
+    Và với mỗi cạnh của hình cũ, ta thêm vào một phần diện tích của một tam giác đều nhỏ có độ dài cạnh mới là $a \left(\dfrac{1}{3}\right)^{n-1}$. Diện tích mỗi tam giác đó là $\dfrac{\sqrt{3}}{4} \left[a \left(\dfrac{1}{3}\right)^{n-1}\right]^2$.
+
+    \begin{center}
+    \includegraphics[width=0.7 \linewidth]{Hinh10.jpg}
+    \end{center}
+    Mà hình cũ là hình có $N_{n-1} = 3 \cdot 4^{n-2}$ cạnh, vậy tổng diện tích các tam giác nhỏ được thêm vào ở bước $n$ là:
+    \[
+    \Delta S_n = \left(3 \cdot 4^{n-2}\right) \cdot \frac{\sqrt{3}}{4} \left[a \left(\frac{1}{3}\right)^{n-1}\right]^2 = \frac{3a^2\sqrt{3}}{4} \cdot \frac{4^{n-2}}{9^{n-1}} = S_1 \cdot \frac{1}{3} \cdot \left(\frac{4}{9}\right)^{n-2}
+    \]
+    
+     \begin{itemize}
+      \item Diện tích $S_n$ của bông tuyết ở bước $n$ là tổng diện tích ban đầu và các phần diện tích tăng thêm:
+        \begin{align*}
+        S_n &= S_1 + \Delta S_2 + \Delta S_3 + \dots + \Delta S_n \\
+        &= S_1 + \frac{1}{3}S_1 + \frac{1}{3}S_1 \cdot \left(\frac{4}{9}\right) + \frac{1}{3}S_1 \cdot \left(\frac{4}{9}\right)^2 + \dots + \frac{1}{3}S_1 \cdot \left(\frac{4}{9}\right)^{n-2} \\
+        &= S_1 \left[ 1 + \frac{1}{3} \underbrace{\left( 1 + \frac{4}{9} + \left(\frac{4}{9}\right)^2 + \dots + \left(\frac{4}{9}\right)^{n-2} \right)}_{\text{Tổng của cấp số nhân có } n-1 \text{ số hạng}} \right]
+        \end{align*}
+    
+        \item Khi $n \to +\infty$, thì $(n - 1) \to +\infty$, ta có giới hạn diện tích áp dụng tổng cấp số nhân lùi vô hạn:
+        \[
+        S_{\infty} = \lim_{n \to +\infty} S_n = S_1 \cdot \left(1 + \frac{1}{3} \cdot \frac{u_1}{1 - q'}\right) = S_1 \cdot \left(1 + \dfrac{1}{3} \cdot \dfrac{1}{1 - \dfrac{4}{9}}\right) = \frac{8}{5}S_1
+        \]
+    
+        \item Thay giá trị $S_1 = \dfrac{a^2\sqrt{3}}{4}$, diện tích toàn phần của bông tuyết khi $n \to +\infty$ là:
+        \[
+        S_{\infty} = \frac{8}{5} \cdot \frac{a^2\sqrt{3}}{4} = \frac{2a^2\sqrt{3}}{5}
+        \]
+    \end{itemize}
+    \newpage
+    \section{Bài toán tam giác Sierpiński}
+    \begin{baitoan} {Tam giác Sierpiński}
+        Khởi đầu với một tam giác đều, ta thực hiện các bước sau:
+        \begin{enumerate}
+            \item Chia nhỏ tam giác này thành 4 tam giác đều bằng nhau, sau đó ta loại bỏ tam giác ở chính giữa (trung tâm).
+            \item Lặp lại bước trên cho các tam giác còn lại.
+        \end{enumerate}
+        Quá trình này có thể tiến ra vô hạn, và ta được một fractal, được gọi là tam giác Sierpinski. Tính diện tích phần còn lại sau 10 lần chia. Làm tròn đến hàng phần chục.
+        \begin{center}
+        \includegraphics[width=0.9 \textwidth]{Hinh11.jpg}
+        \end{center}
+    \end{baitoan}
+    \noindent \textbf{a) Khảo sát chu vi tam giác Sierpinski}
+
+    \noindent Chu vi của tam giác Sierpinski ở bước thứ $n$ ($P_n$) bao gồm chu vi tam giác đều lớn bên ngoài cộng với tổng chu vi của tất cả các lỗ hổng tam giác đều đã bị loại bỏ tính đến bước đó.
+
+    \begin{itemize}
+    \item \textbf{Gọi $P_0$ là chu vi tam giác đều biên ngoài ban đầu:} $P_0 = 3a$.
+
+    %\begin{center}
+    %\includegraphics[width=0.25\linewidth]{sierpinski_n0.png}
+    %\end{center}
+    %\centering{$n = 0$}
+
+    \item \textbf{Lần 1:} Ta tạo ra 1 lỗ hổng hình tam giác đều cạnh $\dfrac{a}{2}$. Chu vi tăng thêm là:
+    \[
+    \Delta P_1 = 3 \cdot \dfrac{a}{2} = \dfrac{3a}{2}
+    \]
+
+    %\begin{center}
+    %\includegraphics[width=0.25\linewidth]{sierpinski_n1.png}
+    %\end{center}
+    %\centering{$n = 1$}
+
+    \item \textbf{Lần 2:} Ta tạo thêm 3 lỗ hổng hình tam giác đều cạnh $\dfrac{a}{4}$. Tổng chu vi tăng thêm ở bước này là:
+    \[
+    \Delta P_2 = 3 \cdot \left(3 \cdot \dfrac{a}{4}\right) = \dfrac{9a}{4} = \dfrac{3a}{2} \cdot \left(\dfrac{3}{2}\right)
+    \]
+
+    %\begin{center}
+    %\includegraphics[width=0.25\linewidth]{sierpinski_n2.png}
+    %\end{center}
+    %\centering{$n = 2$}
+
+    \item \textbf{Lần $n$:} Số lượng lỗ hổng tạo thêm là $3^{n-1}$, mỗi lỗ hổng có cạnh $\dfrac{a}{2^n}$. Tổng chu vi tăng thêm là:
+    \[
+    \Delta P_n = 3^{n-1} \cdot \left(3 \cdot \dfrac{a}{2^n}\right) = 3a \cdot \dfrac{3^{n-1}}{2^n} = \dfrac{3a}{2} \left(\dfrac{3}{2}\right)^{n-1}
+    \]
+
+    Dãy các chu vi tăng thêm $\Delta P_1, \Delta P_2, \dots, \Delta P_n$ là một cấp số nhân gồm $n$ số hạng, với số hạng đầu $u_1 = \dfrac{3a}{2}$ và công bội $q = \dfrac{3}{2}$.
+
+    \item \textbf{Tổng chu vi sau $n$ lần chia:}
+    \begin{align*}
+    P_n &= P_0 + \Delta P_1 + \Delta P_2 + \dots + \Delta P_n = 3a + \dfrac{3a}{2} \cdot \dfrac{\left(\dfrac{3}{2}\right)^n - 1}{\dfrac{3}{2} - 1} \\
+        &= 3a + \dfrac{3a}{2} \cdot \dfrac{\left(\dfrac{3}{2}\right)^n - 1}{\dfrac{1}{2}} = 3a + 3a \left[\left(\dfrac{3}{2}\right)^n - 1\right] \\
+        &= 3a \cdot \left(\dfrac{3}{2}\right)^n
+    \end{align*}
+    \item \textbf{Sau vô hạn lần chia ($n \to +\infty$):} Vì $\dfrac{3}{2} > 1$ nên $\displaystyle \lim_{n \to +\infty} \left(\dfrac{3}{2}\right)^n = +\infty$. Suy ra:
+    \[
+    \lim_{n \to +\infty} P_n = +\infty
+    \]
+    \end{itemize}
+    \noindent \textbf{b) Khảo sát diện tích phần còn lại}
+
+    Để giải quyết bài toán này, chúng ta có thể tính tổng diện tích các phần đã bị loại bỏ, rồi lấy diện tích tam giác ban đầu trừ đi.
+
+    \begin{itemize}
+    \item \textbf{Lần 1:} Bỏ đi 1 tam giác đều có cạnh $\dfrac{a}{2}$. Diện tích bị bỏ đi là:
+    \[
+    u_1 = 1 \cdot \dfrac{\left(\dfrac{a}{2}\right)^2 \sqrt{3}}{4} = \dfrac{a^2\sqrt{3}}{16}
+    \]
+
+    \item \textbf{Lần 2:} Còn lại 3 tam giác, mỗi tam giác ta bỏ đi 1 tam giác nhỏ ở giữa có cạnh $\dfrac{a}{4}$. Diện tích bị bỏ đi thêm là:
+    \[
+    u_2 = 3 \cdot \dfrac{\left(\dfrac{a}{4}\right)^2 \sqrt{3}}{4} = \dfrac{3a^2\sqrt{3}}{64} = u_1 \cdot \left(\dfrac{3}{4}\right)
+    \]
+
+    \item \textbf{Lần 3:} Còn lại $3 \times 3 = 9$ tam giác nhỏ hơn, mỗi hình ta bỏ đi 1 tam giác có cạnh $\dfrac{a}{8}$. Diện tích bị bỏ đi thêm là:
+    \[
+    u_3 = 9 \cdot \dfrac{\left(\dfrac{a}{8}\right)^2 \sqrt{3}}{4} = \dfrac{9a^2\sqrt{3}}{256} = u_1 \cdot \left(\dfrac{3}{4}\right)^2
+    \]
+
+    \item \textbf{Lần $n$:} Có thể thấy dãy diện tích bị loại bỏ ở từng bước $(u_n)$ lập thành một cấp số nhân với số hạng đầu $u_1 = \dfrac{a^2\sqrt{3}}{16}$ và công bội $q' = \dfrac{3}{4}$.
+
+    \item \textbf{Tổng diện tích bị bỏ đi sau vô hạn lần:} Vì $|q'| = \dfrac{3}{4} < 1$, đây là một cấp số nhân lùi vô hạn. Tổng diện tích các phần bị khoét đi là:
+    \[
+    S_{\text{bỏ}} = u_1 + u_2 + u_3 + \dots = \dfrac{u_1}{1 - q'} = \dfrac{\dfrac{a^2\sqrt{3}}{16}}{1 - \dfrac{3}{4}} = \dfrac{\dfrac{a^2\sqrt{3}}{16}}{\dfrac{1}{4}} = \dfrac{a^2\sqrt{3}}{4}
+    \]
+
+    \item \textbf{Kết luận:} Sau vô hạn bước, tổng diện tích các phần bị khoét bỏ đi đúng bằng diện tích tam giác ban đầu $\left(\dfrac{a^2\sqrt{3}}{4}\right)$. Do đó, diện tích phần tam giác còn lại là:
+    \[
+    S_{\text{còn lại}} = S_{\text{ban đầu}} - S_{\text{bỏ}} = \dfrac{a^2\sqrt{3}}{4} - \dfrac{a^2\sqrt{3}}{4} = 0
+    \]
+    \end{itemize}
+    \section{Một số bài toán khác}
+    Áp dụng hoàn toàn tương tự quy trình khảo sát chu vi và diện tích thông qua cấp số nhân như trên, bạn đọc có thể tự mình phân tích và khám phá kết quả đối với một số hình sau: Tập hợp Cantor (Đoạn thẳng Cantor); Hình vuông xoắn ốc vô hạn; Bọt biển Menger.
+
+    Để mở rộng phương pháp nghiên cứu sang không gian một chiều, bài toán dưới đây xét quá trình phân chia và loại bỏ liên tục các phân đoạn trên một đoạn thẳng ban đầu. Thông qua việc thiết lập dãy số biểu diễn độ dài bị xóa ở mỗi bước, chúng ta sẽ khảo sát sự hội tụ của tổng các độ dài này dựa trên lý thuyết cấp số nhân.
+    
+    \begin{baitoan}{Đoạn thẳng Cantor}
+    \noindent Một đoạn thẳng ban đầu có độ dài bằng $a = 1$. Ta thực hiện các bước sau:
+    \begin{enumerate}
+        \item Chia đoạn thẳng này thành 3 phần bằng nhau và xóa đi phần đoạn thẳng ở chính giữa. Khi đó ta còn lại 2 đoạn thẳng có độ dài $\dfrac{a}{3}$.
+        \item Với mỗi đoạn thẳng còn lại, ta chia làm 3 phần bằng nhau và xóa đi đoạn chính giữa. Ta còn lại 4 đoạn thẳng, mỗi đoạn có độ dài $\dfrac{a}{9}$.
+        \item Lặp lại quá trình trên nhiều lần.
+    \end{enumerate}
+    \begin{center}
+    \includegraphics[width=1.0\textwidth]{Hinh12.jpg}
+    \end{center}
+    \end{baitoan}
+    \noindent Mở rộng sang không gian ba chiều, bài toán dưới đây khảo sát sự biến thiên thể tích của khối lập phương qua các thao tác đục lỗ lặp lại.
+    \begin{baitoan}{Bọt biển Menger}
+    Một hình lập phương có cạnh bằng 9, ta thực hiện các bước sau:
+    \begin{enumerate}
+        \item Chia khối lập phương ban đầu thành 27 khối lập phương nhỏ bằng nhau, tương tự như cấu trúc của một khối Rubik kích thước $3 \times 3 \times 3$.
+        \item Loại bỏ khối lập phương nhỏ nằm ở chính giữa và 6 khối lập phương nhỏ nằm ở trung tâm của 6 mặt. 
+        \item Lặp lại quy trình trên đối với mỗi khối lập phương nhỏ còn lại.
+    \end{enumerate}
+    \begin{center}
+    \includegraphics[width=0.8\textwidth]{Hinh14.jpg}
+    \end{center}
+    
+    Khi quá trình này được lặp lại nhiều lần, ta được hình bọt biển Menger. 
+    \end{baitoan}
+    \noindent Khác với các bài toán phân chia và gọt đẽo không gian, mô hình chuỗi hình vuông xoắn ốc được tạo thành từ một phép biến hình lặp liên tiếp, sinh ra một dãy các hình vuông đồng dạng thu nhỏ dần. Việc tính tổng diện tích của hệ thống hình vuông này là minh họa thực tế cho ứng dụng của cấp số nhân lùi vô hạn trong hình học phẳng.
+    \begin{baitoan}{Hình vuông xoắn ốc}
+    Cho một hình vuông $A_1B_1C_1D_1$ có độ dài cạnh là $A_1B_1 = 1$ và diện tích là $S_1$. Trên các cạnh $A_1B_1, B_1C_1, C_1D_1, D_1A_1$ lần lượt lấy các điểm $A_2, B_2, C_2, D_2$ sao cho tứ giác $A_2B_2C_2D_2$ là một hình vuông và góc $\widehat{A_1A_2D_2} = 30^\circ$. Hình vuông $A_2B_2C_2D_2$ có diện tích là $S_2$.
+    
+    Tiếp tục lặp lại quá trình này: trên các cạnh của hình vuông $A_2B_2C_2D_2$ lấy các điểm $A_3, B_3, C_3, D_3$ để tạo thành hình vuông thứ ba có diện tích $S_3$, và cứ tiếp tục như thế ta thu được dãy diện tích $S_1, S_2, S_3, \dots, S_n, \dots$
+    \begin{center}
+    \includegraphics[width=1.0\textwidth]{Hinh13.jpg}
+    \end{center}
+    \end{baitoan}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     \chapter{ỨNG DỤNG SYMPY TRONG MÔ HÌNH HÓA VÀ TÍNH TOÁN}
+Ở Chương 2, mỗi bài toán đều được giải bằng cách nhận diện tỉ số đồng dạng $k$ qua từng bước lặp, từ đó suy ra công bội của cấp số nhân tương ứng và tính tổng bằng công thức cấp số nhân lùi vô hạn. Chương này hiện thực hóa lại đúng quy trình suy luận đó bằng chương trình máy tính, sử dụng thư viện SymPy, nhằm hai mục đích: (1) \textbf{kiểm chứng} — tính lại chu vi/diện tích/thể tích ở từng bước bằng số liệu chính xác (không làm tròn) và đối chiếu với công thức đã suy ra bằng tay; (2) \textbf{trực quan hóa} — vẽ lại hình ảnh qua nhiều bước lặp để thấy rõ cấu trúc tự đồng dạng hình thành như thế nào.
+
+\section{Vai trò của SymPy trong mô hình hóa hình học}
+
+SymPy là một thư viện tính toán biểu tượng (\textit{symbolic computation}) của Python: khác với các phép tính số thực thông thường vốn luôn làm tròn, SymPy giữ nguyên các đại lượng ở dạng chính xác — phân số (\texttt{sympy.Rational}), căn thức ($\sqrt{3}$, $\sqrt{2}$...), hay biểu thức chứa tham số. Trong mô hình hóa các bài toán ở Chương 2, SymPy được dùng theo ba vai trò chính:
+
+\begin{itemize}[leftmargin=1.5em, itemsep=3pt]
+  \item \textbf{Dựng tọa độ chính xác:} lớp \texttt{sympy.Point2D} cho phép biểu diễn các đỉnh hình học (kể cả tọa độ có chứa $\sqrt{3}$ như đỉnh tam giác đều) và cung cấp sẵn các phép toán hình học — khoảng cách (\texttt{distance}), phép quay quanh một tâm (\texttt{rotate}) — rất phù hợp để dựng các bước lặp như bông tuyết Koch.
+  \item \textbf{Tính toán đại số chính xác:} \texttt{sympy.Rational} và các hàm \texttt{simplify}, \texttt{nsimplify} cho phép cộng dồn chu vi, diện tích, thể tích qua nhiều bước dưới dạng phân số hoặc biểu thức chứa căn, từ đó so sánh trực tiếp — bằng dấu ``='' chứ không phải ``xấp xỉ'' — với công thức cấp số nhân đã suy ra ở Chương 2.
+  \item \textbf{Giải phương trình để suy ra tỉ số đồng dạng:} với bài toán hình vuông xoắn ốc, tỉ số đồng dạng $k$ không cho trực tiếp mà phải suy ra từ điều kiện góc $30^\circ$; lệnh \texttt{sympy.solve} cho phép giải chính xác điều kiện này thay vì dò số bằng tay.
+\end{itemize}
+
+Việc vẽ hình được giao cho \textbf{Matplotlib} — SymPy không phải công cụ vẽ hình chuyên dụng, vai trò của nó dừng lại ở việc cung cấp tọa độ/số liệu chính xác để Matplotlib hiển thị.
+
+\section{Bông tuyết Koch}
+
+\textbf{Ý tưởng dựng hình bằng SymPy.} Xuất phát từ tam giác đều (ba đỉnh là các \texttt{Point2D}, trong đó có tọa độ chứa $\sqrt{3}$ do chiều cao tam giác đều). Ở mỗi bước lặp, mỗi cạnh (đoạn nối hai điểm liên tiếp) được chia thành ba qua hai điểm $B$, $D$; đỉnh ``mũi nhọn'' $C$ được tạo bằng cách gọi \texttt{D.rotate(-$\pi$/3, pt=B)} — tức quay điểm $D$ quanh tâm $B$ một góc $-60^\circ$. Chu vi ở bước $n$ được tính bằng tổng khoảng cách (\texttt{distance}) giữa các điểm liên tiếp, dưới dạng chính xác.
+
+\begin{pythoncode}{Code Python 3.1: Algortihm dựng bông tuyết Koch}
+import sympy as sp
+
+def koch_step(points):
+    new_points = [points[0]]
+    for p1, p2 in zip(points, points[1:]):
+        B = p1 + (p2 - p1) / 3
+        D = p1 + (p2 - p1) * sp.Rational(2, 3)
+        peak = D.rotate(-sp.pi / 3, pt=B)   # dinh mui nhon, quay quanh B
+        new_points += [B, peak, D, p2]
+    return new_points
+
+def koch_snowflake_points(a, n):
+    h = a * sp.sqrt(3) / 2
+    A, B, C = sp.Point2D(0, 0), sp.Point2D(a, 0), sp.Point2D(a/2, h)
+    points = [A, B, C, A]
+    for _ in range(n - 1):
+        points = koch_step(points)
+    return points
+
+def perimeter_exact(points):
+    return sp.simplify(sum(p1.distance(p2) for p1, p2 in zip(points, points[1:])))
+\end{pythoncode}
+
+Chạy chương trình với $a=1$ và $n=1,2,3,4$, chu vi chính xác in ra lần lượt là $3,\ 4,\ \dfrac{16}{3},\ \dfrac{64}{9}$ — khớp tuyệt đối với công thức $P_n = 3\left(\dfrac{4}{3}\right)^{n-1}$ đã suy ra ở Mục 2.2.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\textwidth]{koch_snowflake.png}
+  \caption{Bông tuyết Koch qua các bước lặp $n=1,2,3,4$.}
+  \label{fig:koch}
+\end{figure}
+
+\section{Tấm thảm Sierpinski}
+
+\textbf{Ý tưởng dựng hình bằng SymPy.} Thay vì dựng từng hình vuông bằng \texttt{Point2D}, bài toán này thuận tiện hơn khi dùng đệ quy trực tiếp trên tọa độ góc dưới-trái và cạnh của từng hình vuông con: hình vuông cạnh \texttt{side} được chia thành $3\times3$ hình vuông cạnh \texttt{side/3}, bỏ ô chính giữa $(i=1,j=1)$, rồi gọi đệ quy trên 8 ô còn lại. Diện tích còn lại được tính bằng \texttt{sympy.Rational(8,9)} lũy thừa $n$ nhân với $a^2$, giữ nguyên dạng phân số.
+
+\begin{pythoncode}{Code Python 3.2: Dựng tấm thảm Sierpinski bằng đệ quy}
+def sierpinski_squares(x, y, side, depth):
+    if depth == 0:
+        return [(x, y, side)]
+    squares = []
+    s3 = side / 3
+    for i in range(3):
+        for j in range(3):
+            if i == 1 and j == 1:
+                continue
+            squares += sierpinski_squares(x + i*s3, y + j*s3, s3, depth - 1)
+    return squares
+
+def remaining_area_exact(a, n):
+    return sp.simplify(sp.nsimplify(a)**2 * sp.Rational(8, 9)**n)
+\end{pythoncode}
+
+Với $a=1$, diện tích còn lại in ra chính xác là $1,\ \dfrac{8}{9},\ \dfrac{64}{81},\ \dfrac{512}{729}$ ứng với $n=0,1,2,3$ — khớp với công thức $S_{\text{còn lại}}(n) = a^2\left(\dfrac{8}{9}\right)^n$ ở Mục 2.1, và tiến dần về $0$ đúng như kết luận ``diện tích phần thảm còn lại sau vô hạn bước bằng 0''.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\textwidth]{sierpinski_carpet.png}
+  \caption{Tấm thảm Sierpinski qua các bước lặp $n=0,1,2,3$.}
+  \label{fig:sierpinski-carpet}
+\end{figure}
+
+\section{Tam giác Sierpinski}
+
+\textbf{Ý tưởng dựng hình bằng SymPy.} Tương tự tấm thảm Sierpinski nhưng chia tam giác thành 4 tam giác bằng ba trung điểm các cạnh, bỏ tam giác giữa, đệ quy trên 3 tam giác còn lại. Diện tích còn lại là $S_1\cdot\left(\dfrac{3}{4}\right)^n$ với $S_1=\dfrac{a^2\sqrt{3}}{4}$, tính bằng \texttt{sp.sqrt(3)} để giữ dạng chính xác.
+
+\begin{pythoncode}{Code Python 3.3: Dựng tam giác Sierpinski bằng đệ quy}
+def sierpinski_triangles(p1, p2, p3, depth):
+    if depth == 0:
+        return [(p1, p2, p3)]
+    m12, m23, m31 = midpoint(p1, p2), midpoint(p2, p3), midpoint(p3, p1)
+    tris = []
+    tris += sierpinski_triangles(p1, m12, m31, depth - 1)
+    tris += sierpinski_triangles(m12, p2, m23, depth - 1)
+    tris += sierpinski_triangles(m31, m23, p3, depth - 1)
+    return tris
+
+def remaining_area_exact(a, n):
+    S0 = sp.nsimplify(a)**2 * sp.sqrt(3) / 4
+    return sp.simplify(S0 * sp.Rational(3, 4)**n)
+\end{pythoncode}
+
+Kết quả: $27\sqrt{3}/256$ tam giác còn lại ở $n=3$ ($27$ tam giác, mỗi tam giác diện tích $\sqrt{3}/256$), khớp đúng công bội $q'=3/4$ đã nêu ở Mục 2.3. Thay $n=10$, chương trình tính ngay diện tích còn lại (làm tròn hàng phần chục) đúng như yêu cầu đề bài, mà không cần khai triển $\left(\dfrac{3}{4}\right)^{10}$ bằng tay.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\textwidth]{sierpinski_triangle.png}
+  \caption{Tam giác Sierpinski qua các bước lặp $n=0,1,3,5$.}
+  \label{fig:sierpinski-triangle}
+\end{figure}
+
+\section{Đoạn thẳng Cantor}
+
+\textbf{Ý tưởng dựng hình bằng SymPy.} Đệ quy trên một cặp (điểm đầu, điểm cuối) của từng đoạn: chia đoạn $[a,b]$ thành ba, xóa đoạn giữa, giữ lại hai đoạn hai bên, gọi đệ quy. Tổng độ dài còn lại sau $n$ bước là $a\cdot\left(\dfrac{2}{3}\right)^n$, tính bằng \texttt{sympy.Rational(2,3)}. Để trực quan hóa, mỗi mức $n$ được vẽ thành một hàng ngang riêng (hình bậc thang quen thuộc của tập Cantor).
+
+\begin{pythoncode}{Code Python 3.4: Tạo các khoảng cho tập Cantor}
+def cantor_intervals(start, end, depth):
+    if depth == 0:
+        return [(start, end)]
+    third = (end - start) / 3
+    left = (start, start + third)
+    right = (end - third, end)
+    return cantor_intervals(*left, depth - 1) + cantor_intervals(*right, depth - 1)
+
+def remaining_length_exact(a, n):
+    return sp.simplify(sp.nsimplify(a) * sp.Rational(2, 3)**n)
+\end{pythoncode}
+
+Kết quả: số đoạn còn lại tăng theo $2^n$ ($1,2,4,8,\dots$), tổng độ dài giảm chính xác theo $\left(\dfrac{2}{3}\right)^n$: $1,\ \dfrac{2}{3},\ \dfrac{4}{9},\ \dfrac{8}{27},\dots$ — tiến dần về $0$ dù số đoạn tăng không ngừng, minh họa cùng dạng nghịch lý ``đo lường sự vô hạn'' đã nêu trong phần mở đầu của chuyên đề nguồn.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.80\textwidth]{cantor_set.png}
+  \caption{Đoạn thẳng Cantor qua các mức $n=0,\dots,6$.}
+  \label{fig:cantor}
+\end{figure}
+
+\section{Bọt biển Menger}
+
+\textbf{Ý tưởng dựng hình bằng SymPy.} Đây là cấu trúc ba chiều duy nhất trong tiểu luận, nên cách dựng hình khác với các bài trên: thay vì đệ quy sinh từng khối nhỏ, chương trình dựng một lưới ô $3^n\times3^n\times3^n$ và xét từng ô bằng cách phân tích chỉ số của nó theo cơ số 3 qua $n$ cấp — một ô bị loại nếu ở bất kỳ cấp nào có từ hai tọa độ trở lên rơi vào vị trí ``giữa'' (tâm khối hoặc tâm một mặt). Thể tích còn lại được tính chính xác bằng \texttt{sympy.Rational(20,27)} lũy thừa $n$ (vì mỗi bước giữ lại 20 trong 27 khối con), còn việc vẽ hình dùng \texttt{Matplotlib} 3D (\texttt{Axes3D.voxels}) trên lưới boolean do SymPy/Python tính được.
+
+\begin{pythoncode}{Code Python 3.5: Kiểm tra ô giữ lại trong bọt biển Menger}
+def is_kept(ix, iy, iz, n):
+    for _ in range(n):
+        dx, dy, dz = ix % 3, iy % 3, iz % 3
+        if (dx == 1) + (dy == 1) + (dz == 1) >= 2:
+            return False
+        ix, iy, iz = ix // 3, iy // 3, iz // 3
+    return True
+
+def remaining_volume_exact(a, n):
+    return sp.simplify(sp.nsimplify(a)**3 * sp.Rational(20, 27)**n)
+\end{pythoncode}
+
+Với cạnh $a=9$ như đề bài, thể tích còn lại tính được chính xác là $729,\ 540,\ 400$ ứng với $n=0,1,2$ — khớp với $V(n)=729\left(\dfrac{20}{27}\right)^n$, và số khối nhỏ còn lại là $1, 20, 400$ (đúng $20^n$), xác nhận quy luật cấp số nhân với công bội thể tích $q=20/27$.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\textwidth]{menger_sponge.png}
+  \caption{Bọt biển Menger qua các bước lặp $n=0,1,2$.}
+  \label{fig:menger}
+\end{figure}
+
+\section{Hình vuông xoắn ốc}
+
+\textbf{Ý tưởng dựng hình bằng SymPy.} Đây là bài toán duy nhất mà tỉ số đồng dạng $k$ không cho sẵn, mà phải suy ra từ điều kiện góc $\widehat{A_1A_2D_2}=30^\circ$. Gọi $x$ là khoảng cách từ $A_1$ đến $A_2$ (cạnh hình vuông chuẩn hóa bằng 1); tam giác $A_1A_2D_2$ vuông tại $A_1$ với hai cạnh góc vuông $x$ và $1-x$, nên $\tan(30^\circ)=\dfrac{1-x}{x}$. Lệnh \texttt{sympy.solve} giải chính xác phương trình này ra $x$, từ đó cạnh hình vuông mới (cạnh huyền) và tỉ số đồng dạng $k=\sqrt{x^2+(1-x)^2}$ được suy ra ở dạng chứa căn thức, không làm tròn.
+
+\begin{pythoncode}{Code Python 3.6: Tính tỉ số đồng dạng và tọa độ hình vuông}
+x = sp.symbols('x', positive=True)
+nghiem = sp.solve(sp.Eq((1 - x) / x, sp.tan(sp.pi / 6)), x)
+x_val = nghiem[0]                                   # = 3/2 - sqrt(3)/2
+k = sp.simplify(sp.sqrt(x_val**2 + (1 - x_val)**2))  # ti so dong dang
+q = sp.simplify(k**2)                                # cong boi dien tich
+
+def next_square(square, x_val):
+    return [(P[0] + x_val*(Q[0]-P[0]), P[1] + x_val*(Q[1]-P[1]))
+            for P, Q in zip(square, square[1:] + square[:1])]
+\end{pythoncode}
+
+Kết quả: $x = \dfrac{3}{2}-\dfrac{\sqrt{3}}{2} \approx 0{,}634$, công bội diện tích $q=k^2=4-2\sqrt{3}\approx0{,}536$ (thỏa $0<q<1$ nên cấp số nhân lùi vô hạn), và tổng diện tích toàn chuỗi vô hạn hình vuông là:
+\[
+S = \frac{S_1}{1-q} = 1 + \frac{2\sqrt{3}}{3} \approx 2{,}1547 \qquad (\text{với } S_1 = 1).
+\]
+
+Việc lặp lại hàm \texttt{next\_square} nhiều lần cho ra dãy hình vuông vừa thu nhỏ dần vừa xoay quanh tâm. Để thấy rõ \textbf{tiến trình lồng nhau} thay vì chỉ một hình tĩnh chồng hết các bước lên nhau, chương trình vẽ thành nhiều panel theo số hình vuông đã xuất hiện ($1, 3, 6, 10, 14$ hình vuông): ở mỗi panel, hình vuông mới nhất được tô đậm, các hình vuông trước đó giữ lại nhưng làm nhạt đi — qua đó thấy được từng bước hình vuông mới ``chui vào'' bên trong hình vuông trước, dần tạo thành chuỗi xoắn ốc.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.85\textwidth]{spiral_squares.png}
+  \caption{Hình vuông xoắn ốc — tiến trình lồng nhau qua các bước.}
+  \label{fig:spiral}
+\end{figure}
+\chapter*{KẾT LUẬN}
+\addcontentsline{toc}{chapter}{KẾT LUẬN}
+\fontsize{13pt}{18pt}\selectfont
+\setlength{\baselineskip}{26truept}
+
+\noindent Tiểu luận ``Ứng dụng cấp số trong hình học và mô hình hóa bằng SymPy'' đã được thực hiện với mục tiêu làm rõ mối liên hệ giữa cấp số nhân và các đại lượng hình học trong các cấu trúc tự đồng dạng, đồng thời minh họa vai trò của công cụ tính toán biểu tượng trong việc kiểm chứng và trực quan hóa các kết quả đó. Qua ba chương, nhóm đã hoàn thành các nội dung chính như sau.
+
+\vspace{0.4em}
+\noindent\textbf{1. Về cơ sở lý thuyết}
+
+Chương~1 hệ thống hóa các khái niệm công cụ: dãy số và dãy số truy hồi; cấp số nhân cùng công thức số hạng tổng quát và tổng $n$ số hạng đầu; cấp số nhân lùi vô hạn khi $|q|<1$. Trên nền tảng đó, chương làm rõ ý nghĩa của tính lặp lại trong hình học và định nghĩa phép đồng dạng tỉ số $k>0$. Định lý về tỉ số độ dài, diện tích, thể tích của các hình đồng dạng dẫn trực tiếp đến hệ quả then chốt của toàn bộ tiểu luận: khi một cấu trúc được tạo bởi phép lặp đồng dạng tỉ số $k$, dãy chu vi, diện tích và thể tích tương ứng lần lượt lập thành các cấp số nhân với công bội $k$, $k^2$ và $k^3$. Hệ quả này là cầu nối giữa đại số và hình học, cho phép chuyển các bài toán ``tính tổng chu vi/diện tích/thể tích sau vô hạn bước lặp'' thành bài toán tính tổng cấp số nhân quen thuộc.
+
+\vspace{0.4em}
+\noindent\textbf{2. Về các mô hình hình học cấp số điển hình}
+
+Chương~2 vận dụng hệ quả trên để khảo sát sáu mô hình cụ thể.
+
+\begin{itemize}[leftmargin=1.5em, itemsep=3pt]
+  \item \textbf{Tấm thảm Sierpinski:} Chu vi tăng theo cấp số nhân công bội $8/3$ và tiến ra vô hạn; diện tích phần còn lại giảm theo công bội $8/9$ và hội tụ về $0$ sau vô hạn bước.
+  \item \textbf{Bông tuyết Koch:} Chu vi là cấp số nhân công bội $4/3$, cũng tiến ra vô hạn; diện tích hội tụ về giá trị hữu hạn $\dfrac{2a^2\sqrt{3}}{5}$ nhờ cấp số nhân lùi vô hạn công bội $4/9$.
+  \item \textbf{Tam giác Sierpinski:} Chu vi tăng theo công bội $3/2$ và tiến ra vô hạn; diện tích phần còn lại giảm theo công bội $3/4$ và hội tụ về $0$. Chương trình cho phép tính ngay diện tích còn lại sau $10$ lần chia như yêu cầu đề bài.
+  \item \textbf{Đoạn thẳng Cantor:} Tổng độ dài còn lại giảm theo công bội $2/3$ và tiến về $0$, dù số đoạn tăng theo $2^n$ --- minh họa nghịch lý ``đo lường sự vô hạn'' trên đường thẳng.
+  \item \textbf{Bọt biển Menger:} Thể tích còn lại là cấp số nhân công bội $20/27$; với cạnh ban đầu $a=9$, thể tích sau các bước $n=0,1,2$ lần lượt là $729$, $540$, $400$, khớp công thức $V(n)=729\left(\dfrac{20}{27}\right)^n$.
+  \item \textbf{Hình vuông xoắn ốc:} Tỉ số đồng dạng $k$ không cho sẵn mà suy ra từ điều kiện góc $30^\circ$; công bội diện tích $q=4-2\sqrt{3}\approx 0{,}536\in(0,1)$ nên tổng diện tích chuỗi vô hạn hội tụ về $1+\dfrac{2\sqrt{3}}{3}$.
+\end{itemize}
+
+Các kết quả trên cho thấy cùng một quy trình suy luận --- nhận diện tỉ số đồng dạng, xác định công bội, áp dụng công thức tổng cấp số nhân --- có thể áp dụng thống nhất cho cả không gian một chiều, hai chiều và ba chiều.
+
+\vspace{0.4em}
+\noindent\textbf{3. Về ứng dụng SymPy trong mô hình hóa và kiểm chứng}
+
+Chương~3 hiện thực hóa đúng quy trình suy luận của Chương~2 bằng thư viện SymPy, với hai mục đích: kiểm chứng số liệu chính xác (phân số, căn thức) và trực quan hóa cấu trúc qua nhiều bước lặp. Cụ thể:
+
+\begin{itemize}[leftmargin=1.5em, itemsep=3pt]
+  \item Dùng \texttt{Point2D}, \texttt{distance}, \texttt{rotate} để dựng bông tuyết Koch; chu vi in ra $3$, $4$, $\dfrac{16}{3}$, $\dfrac{64}{9}$ khớp tuyệt đối công thức $P_n=3\left(\dfrac{4}{3}\right)^{n-1}$.
+  \item Dùng đệ quy trên tọa độ góc và cạnh để dựng tấm thảm Sierpinski và tam giác Sierpinski; diện tích còn lại giữ dạng $\left(\dfrac{8}{9}\right)^n$ và $\left(\dfrac{3}{4}\right)^n$.
+  \item Dùng phân tích chỉ số theo cơ số $3$ để xác định ô giữ lại trong bọt biển Menger; thể tích khớp $a^3\left(\dfrac{20}{27}\right)^n$.
+  \item Dùng \texttt{sympy.solve} giải phương trình $\tan 30^\circ=\dfrac{1-x}{x}$ để suy ra tỉ số đồng dạng của hình vuông xoắn ốc dưới dạng chứa căn, không làm tròn.
+\end{itemize}
+
+Việc đối chiếu ``bằng dấu bằng'' giữa kết quả máy tính và công thức tay khẳng định tính đúng đắn của suy luận ở Chương~2, đồng thời cho thấy SymPy là công cụ phù hợp để tích hợp CNTT vào dạy học các chủ đề liên quan cấp số và hình học tự đồng dạng.
+
+\vspace{0.4em}
+\noindent\textbf{4. Ý nghĩa và hạn chế}
+
+Tiểu luận góp phần làm rõ rằng cấp số nhân không chỉ là đối tượng đại số thuần túy mà còn là ngôn ngữ mô tả sự thay đổi của chu vi, diện tích, thể tích trong các cấu trúc lặp. Cách tiếp cận này giúp học sinh, sinh viên nhìn thấy mối liên hệ đại số--hình học và giảm độ khó của các bài toán fractal ở mức độ phổ thông/đại học cơ bản. Việc dùng SymPy và Matplotlib hỗ trợ kiểm chứng chặt chẽ và trực quan hóa, phù hợp định hướng tích hợp công nghệ thông tin trong dạy học Toán.
+
+\vspace{0.4em}
+\noindent\textbf{5. Các hướng nghiên cứu mới}
+
+Trên cơ sở các kết quả đã đạt được, một số hướng nghiên cứu có thể tiếp tục phát triển như sau:
+
+\begin{enumerate}[leftmargin=1.5em, itemsep=4pt]
+  \item \textbf{Lý thuyết chiều fractal.} Tính số chiều Hausdorff (hoặc chiều hộp) của tấm thảm Sierpinski, bông tuyết Koch, tam giác Sierpinski, tập Cantor và bọt biển Menger; so sánh với công bội cấp số nhân đã dùng để thấy mối liên hệ giữa ``tỉ số thu nhỏ'' và chiều fractal.
+
+  \item \textbf{Mở rộng mô hình hình học.} Khảo sát thêm các cấu trúc lặp khác (đường cong Hilbert, tập Julia đơn giản, hình cây Pythagoras,\ldots), thiết lập công bội chu vi/diện tích/thể tích và kiểm chứng bằng SymPy theo cùng quy trình của Chương~2 và Chương~3.
+
+  \item \textbf{Học liệu tương tác.} Chuyển các chương trình SymPy thành notebook Jupyter (hoặc trang web với thư viện tương đương) để học sinh, sinh viên tự thay đổi số bước lặp, tham số tỉ số đồng dạng và quan sát ngay sự thay đổi của chu vi, diện tích, thể tích cùng hình vẽ.
+
+  \item \textbf{Tích hợp vào dạy học.} Thiết kế giáo án/chuyên đề dạy học cấp số nhân gắn với hình học tự đồng dạng ở bậc THPT hoặc đại học sư phạm, sử dụng hình ảnh và code đã xây dựng làm học liệu minh họa, đánh giá hiệu quả nhận thức của người học.
+
+  \item \textbf{Tối ưu và trực quan 3D.} Cải thiện thuật toán dựng bọt biển Menger và các fractal không gian khác (hiệu năng, mức độ chi tiết), kết hợp công cụ vẽ 3D mạnh hơn để phục vụ trình diễn và nghiên cứu trực quan.
+\end{enumerate}
+
+\vspace{0.4em}
+\noindent Tóm lại, tiểu luận đã hoàn thành mục tiêu đề ra: hệ thống hóa cơ sở lý thuyết, giải quyết các mô hình hình học cấp số điển hình và kiểm chứng, minh họa bằng SymPy. Các hướng nghiên cứu nêu trên mở ra khả năng mở rộng cả về chiều sâu lý thuyết lẫn ứng dụng sư phạm. Nhóm hy vọng kết quả này góp phần nhỏ vào việc gắn kết kiến thức đại số với hình học và với công nghệ thông tin trong quá trình dạy và học Toán.
+
+\addcontentsline{toc}{chapter}{TÀI LIỆU THAM KHẢO}
+\fontsize{13pt}{18pt}\selectfont
+\setlength{\baselineskip}{26truept}
+
+\begin{thebibliography}{99}
+
+\bibitem{toan11}
+\textbf{Hà Huy Khoái} (Tổng Chủ biên), \textbf{Cung Thế Anh, Trần Văn Tấn, Đặng Hùng Thắng} (đồng Chủ biên),
+\textit{Toán 11, Tập 1 -- Kết nối tri thức với cuộc sống},
+Nhà xuất bản Giáo dục Việt Nam.
+
+\bibitem{stewart}
+\textbf{James Stewart},
+\textit{Calculus},
+8th ed.,
+Cengage Learning, Boston, 2016.
+
+\bibitem{barnsley}
+\textbf{Michael F. Barnsley},
+\textit{Fractals Everywhere},
+2nd ed.,
+Academic Press, Boston, 1993.
+
+\bibitem{sympy}
+\textbf{SymPy Development Team},
+\textit{SymPy Documentation -- Geometry Module},
+SymPy 1.14.0,
+\url{https://docs.sympy.org/latest/modules/geometry/index.html}.
+
+\bibitem{matplotlib}
+\textbf{Matplotlib Development Team},
+\textit{Matplotlib Documentation -- mplot3d: Axes3D.voxels},
+\url{https://matplotlib.org/stable/gallery/mplot3d/voxels_rgb.html}.
+
+\bibitem{thainguyen}
+\textbf{Thái Nguyễn},
+\textit{Chuyên đề: Ứng dụng của cấp số trong bài toán hình học},
+Trung tâm luyện thi 29Edu, 2026.
+
+\end{thebibliography}
+
+\end{document}
